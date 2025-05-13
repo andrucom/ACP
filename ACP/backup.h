@@ -20,18 +20,18 @@ namespace backup
 
 			// Форматируем дату
 			std::stringstream ss;
-			ss << std::put_time(std::localtime(&in_time_t), "%m.%d.%Y_%H.%M");
+			ss << std::put_time(std::localtime(&in_time_t), "%d.%m.%Y_%H.%M");
 			std::string date_str = ss.str();
 			return date_str;
 		}
 		void show(std::unordered_set<std::string> s);
 		void avtor(std::string ver);
 		void patchAll(fs::path path);
-		void patchConcrect(fs::path path);
+		void patchConcrect(fs::path path, std::unordered_set<std::string> allowedNames);
 		void input(int inp, fs::path path, std::string folder_name);
 		void zip(const std::string& folderPath);
 		void copyDirectory(const fs::path& source, const fs::path& destination, const std::string origname);
-		void createFolder(const fs::path& path, std::string folder_name);
+		void createFolder(const fs::path& path, std::string folder_name, std::unordered_set<std::string> allowedNames);
 
 	};
 }

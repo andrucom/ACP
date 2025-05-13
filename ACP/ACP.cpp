@@ -13,12 +13,12 @@
 
 
 
-auto bk = backup::Back();
-std::unordered_set<std::string> allowedNames = { "test1","test2","testttt" };
+backup::Back bk;
+std::unordered_set<std::string> allowedNames = { "dahalove","dahalove_nether","dahalove_the_end" };
 
 int inp;
 std::string folder_name = "zdahalove_";
-char path[] = "C:/Test";
+const char* path = "D:/ServerMine";
 char Ver[] = "0.0.1";
 
 
@@ -26,10 +26,14 @@ int main()
 {
     setlocale(LC_ALL, "Russian");
     bk.avtor(Ver);
+
     bk.input(inp, path, folder_name);
+
+
 
     do
     {
+        std::cin >> inp;
         switch (inp)
         {
             case 1:
@@ -46,14 +50,14 @@ int main()
                 std::cout << "Вывод некоторых папок:        " << "Фильтр: ";
                 bk.show(allowedNames);
                 std::cout << "\n";
-                bk.patchConcrect(path);
+                bk.patchConcrect(path, allowedNames);
                 bk.input(inp,path,folder_name);
                 break;
             }
             case 3:
             {
                 system("CLS");
-                bk.createFolder(path, folder_name);
+                bk.createFolder(path, folder_name, allowedNames);
                 bk.input(inp, path, folder_name);
                 break;
             }

@@ -10,8 +10,7 @@
 #include <cstdlib>
 #include "backup.h"
 
-auto bk = backup::Back();
-std::unordered_set<std::string> allowedNames = { "test1","test2","testttt" };
+
 
 
 namespace fs = std::filesystem;
@@ -47,7 +46,7 @@ namespace backup
         std::cout << "____________________________\n\n";
     }
 
-    void Back::patchConcrect(fs::path path)
+    void Back::patchConcrect(fs::path path, std::unordered_set<std::string> allowedNames)
     {
         for (const auto& entry : fs::directory_iterator(path))
         {
@@ -71,19 +70,17 @@ namespace backup
         std::cout << "2 - Просмотреть все папки, которые соответсвуют фильтру\n";
         std::cout << "3 - Сделать бекап\n";
         std::cout << "\nВыбор: ";
-        std::cin >> inp;
-        std::cin.ignore();
 
     }
 
     void Back::zip(const std::string& folderPath) {
         std::string command;
 
-#ifdef _WIN32
+        #ifdef _WIN32
         command = "powershell Compress-Archive -Path " + folderPath + " -DestinationPath " + folderPath + ".zip";
-#else
+        #else
         command = "zip -r " + folderPath + ".zip " + folderPath;
-#endif
+        #endif
 
         system(command.c_str());
     }
@@ -93,23 +90,27 @@ namespace backup
         // Копируем рекурсивно все содержимое
 
         // Папка
+        try {
+            std::string folder_name1 = origname;
+            fs::path sourcefolder = destination.string() + "/" + folder_name1;
+            // Путь
+            fs::path dir_path = destination / folder_name1;
+            fs::create_directory(dir_path);
 
-        std::string folder_name1 = origname;
-        fs::path sourcefolder = destination.string() + "/" + folder_name1;
-        // Путь
-        fs::path dir_path = destination / folder_name1;
-        fs::create_directory(dir_path);
+            //std::cout << "\tПапка в: " << sourcefolder.string() << " С именем " << folder_name ;
+            //std::cout << "\n\tСоздаю " << source << " --- " << destination << " \n ";
 
-        //std::cout << "\tПапка в: " << sourcefolder.string() << " С именем " << folder_name ;
-        //std::cout << "\n\tСоздаю " << source << " --- " << destination << " \n ";
+            fs::copy(source, sourcefolder, fs::copy_options::recursive | fs::copy_options::overwrite_existing);
+            std::cout << "\t\tПапка скопирована: " << source << " -> " << sourcefolder << "\n\n";
+        }
+        catch (const fs::filesystem_error& e) {
+           // std::cerr << "Ошибка копирования: " << e.what() << std::endl;
 
-        fs::copy(source, sourcefolder, fs::copy_options::recursive | fs::copy_options::overwrite_existing);
-        std::cout << "\t\tПапка скопирована: " << source << " -> " << sourcefolder << "\n\n";
-        
+        }
 
     }
 
-    void Back::createFolder(const fs::path& path, std::string folder_name)
+    void Back::createFolder(const fs::path& path, std::string folder_name, std::unordered_set<std::string> allowedNames)
     {
         // Папка
         std::string folder_name1 = folder_name + time();
