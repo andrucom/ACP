@@ -1,5 +1,4 @@
-﻿
-#define _CRT_SECURE_NO_WARNINGS
+﻿#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -12,15 +11,24 @@
 
 
 int inp;
+std::string folder_name = "zdahalove_";
 
 const char* path = "C:/Test";
 const char* Ver = "0.0.1";
 
 namespace fs = std::filesystem;
 
-std::unordered_set<std::string> allowedNames = { "test1","test2", "testttt"};
+std::unordered_set<std::string> allowedNames = { "test1","test2","testttt"};
 std::ofstream fout;
 std::ifstream fin;
+
+void show(std::unordered_set<std::string> s) {
+    std::unordered_set<std::string>::iterator it;
+    for (it = s.begin(); it != s.end(); ++it) {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+}
 
 void avtor()
 {
@@ -38,6 +46,7 @@ void patchAll()
         std::cout << "\t" << entry.path().stem() << std::endl;
 
     }
+    std::cout << "____________________________\n\n";
 }
 
 void patchConcrect()
@@ -50,12 +59,15 @@ void patchConcrect()
         {
             std::cout << "\t" << entry.path().stem() << std::endl;
         }
-
+        
     }
+    std::cout << "____________________________\n\n";
 }
 
 void input()
 {
+    std::cout << "\n\nОсновная папка: " << path << "\n";
+    std::cout << "Название новой папки: " << folder_name;
     std::cout << "\n============================= \n";
     std::cout << "1 - Просмотреть все папки в главной папк\n";
     std::cout << "2 - Просмотреть все папки, которые соответсвуют фильтру\n";
@@ -107,7 +119,7 @@ void copyDirectory(const fs::path& source, const fs::path& destination, const st
         std::cout << "\t\tПапка скопирована: " << source << " -> " << sourcefolder << "\n\n";
     }
     catch (const fs::filesystem_error& e) {
-        std::cerr << "Ошибка копирования: " << e.what() << std::endl;
+        //std::cerr << "Ошибка копирования: " << e.what() << std::endl;
         
     }
 }
@@ -115,13 +127,13 @@ void copyDirectory(const fs::path& source, const fs::path& destination, const st
 void createFolder(const fs::path& path)
 {
     // Папка
-    std::string folder_name = "zdahalove_" + time();
+    std::string folder_name1 = folder_name + time();
     // Путь
-    fs::path dir_path = path / folder_name;
+    fs::path dir_path = path / folder_name1;
     fs::create_directory(dir_path);
     std::cout << "\n>> Папка создана! " << dir_path;
     std::cout << "\nКопируем... \n";
-    std::string filepathEnd = path.string() + "/" + folder_name;
+    std::string filepathEnd = path.string() + "/" + folder_name1;
     for (const auto& entry : fs::recursive_directory_iterator(path))
     {
         std::string filename = entry.path().filename().string();
@@ -159,7 +171,9 @@ int main()
             case 2:
             {
                 system("CLS");
-                std::cout << "Вывод некоторых папок: \n";
+                std::cout << "Вывод некоторых папок:        " << "Фильтр: ";
+                show(allowedNames);
+                std::cout << "\n";
                 patchConcrect();
                 input();
                 break;
@@ -169,6 +183,13 @@ int main()
                 system("CLS");
                 std::cout;
                 createFolder(path);
+                input();
+                break;
+            }
+            default:
+            {
+                system("CLS");
+                avtor();
                 input();
                 break;
             }
