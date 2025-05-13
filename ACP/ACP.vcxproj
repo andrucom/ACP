@@ -129,9 +129,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ACP.cpp" />
+    <ClCompile Include="backup.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ACP.h" />
+    <ClInclude Include="backup.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

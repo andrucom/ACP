@@ -18,9 +18,12 @@
     <ClCompile Include="ACP.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="backup.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ACP.h">
+    <ClInclude Include="backup.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

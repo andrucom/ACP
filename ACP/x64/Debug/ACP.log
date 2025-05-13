@@ -1,3 +1,4 @@
-﻿  ACP.cpp
-C:\git\ACP\ACP\ACP.cpp(121,40): warning C4101: e: неиспользованная локальная переменная
-  ACP.vcxproj -> C:\git\ACP\x64\Debug\ACP.exe
+﻿  backup.cpp
+backup.obj : error LNK2005: "class backup::Back bk" (?bk@@3VBack@backup@@A) уже определен в ACP.obj
+backup.obj : error LNK2005: "class std::unordered_set<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,struct std::hash<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > >,struct std::equal_to<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > > allowedNames" (?allowedNames@@3V?$unordered_set@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@A) уже определен в ACP.obj
+C:\git\ACP\x64\Debug\ACP.exe : fatal error LNK1169: обнаружен многократно определенный символ - один или более
