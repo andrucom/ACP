@@ -18,7 +18,7 @@ const char* Ver = "0.0.1";
 
 namespace fs = std::filesystem;
 
-std::unordered_set<std::string> allowedNames = { "test1","test2" };
+std::unordered_set<std::string> allowedNames = { "test1","test2", "testttt"};
 std::ofstream fout;
 std::ifstream fin;
 
@@ -35,7 +35,7 @@ void patchAll()
     for (const auto& entry : fs::directory_iterator(path))
     {
 
-        std::cout << entry.path().stem() << std::endl;
+        std::cout << "\t" << entry.path().stem() << std::endl;
 
     }
 }
@@ -48,7 +48,7 @@ void patchConcrect()
 
         if (allowedNames.count(filename) > 0)
         {
-            std::cout << entry.path().stem() << std::endl;
+            std::cout << "\t" << entry.path().stem() << std::endl;
         }
 
     }
@@ -56,7 +56,11 @@ void patchConcrect()
 
 void input()
 {
-    std::cout << "\n\nВыбор: ";
+    std::cout << "\n============================= \n";
+    std::cout << "1 - Просмотреть все папки в главной папк\n";
+    std::cout << "2 - Просмотреть все папки, которые соответсвуют фильтру\n";
+    std::cout << "3 - Сделать бекап\n";
+    std::cout << "\nВыбор: ";
     std::cin >> inp;
 }
 
@@ -72,42 +76,50 @@ void zip(const std::string& folderPath) {
     system(command.c_str());
 }
 
-void copyDirectory(const fs::path& source, const fs::path& destination) {
-    try {
-        // Копируем рекурсивно все содержимое
-
-        std::cout << "\n\tСоздаю ";
-        std::cout << source;
-        std::cout << " --- ";
-        std::cout << destination;
-        std::cout << " \n ";
-
-        fs::copy(source, destination, fs::copy_options::recursive | fs::copy_options::overwrite_existing );
-        std::cout << "Папка скопирована: " << source << " -> " << destination << std::endl;
-    }
-    catch (const fs::filesystem_error& e) {
-        std::cerr << "Ошибка копирования: " << e.what() << std::endl;
-    }
-}
-
-void createFolder(const fs::path& path)
+std::string time()
 {
-    // Получаем текущую дату
     auto now = std::chrono::system_clock::now();
     auto in_time_t = std::chrono::system_clock::to_time_t(now);
 
     // Форматируем дату
     std::stringstream ss;
-    ss << std::put_time(std::localtime(&in_time_t), "%m.%d.%Y");
+    ss << std::put_time(std::localtime(&in_time_t), "%m.%d.%Y_%H.%M");
     std::string date_str = ss.str();
+    return date_str;
+}
+
+void copyDirectory(const fs::path& source, const fs::path& destination, const std::string origname) {
+    try {
+        // Копируем рекурсивно все содержимое
+
+        // Папка
+      
+        std::string folder_name = origname;
+        fs::path sourcefolder = destination.string() + "/" + folder_name;
+        // Путь
+        fs::path dir_path = destination / folder_name;
+        fs::create_directory(dir_path);
+
+        //std::cout << "\tПапка в: " << sourcefolder.string() << " С именем " << folder_name ;
+        //std::cout << "\n\tСоздаю " << source << " --- " << destination << " \n ";
+
+        fs::copy(source, sourcefolder, fs::copy_options::recursive | fs::copy_options::overwrite_existing );
+        std::cout << "\t\tПапка скопирована: " << source << " -> " << sourcefolder << "\n\n";
+    }
+    catch (const fs::filesystem_error& e) {
+        std::cerr << "Ошибка копирования: " << e.what() << std::endl;
+        
+    }
+}
+
+void createFolder(const fs::path& path)
+{
     // Папка
-    std::string folder_name = "zdahalove_" + date_str;
+    std::string folder_name = "zdahalove_" + time();
     // Путь
     fs::path dir_path = path / folder_name;
     fs::create_directory(dir_path);
-    std::cout << "\nПапка создана! " ;
-    std::cout << dir_path;
-
+    std::cout << "\n>> Папка создана! " << dir_path;
     std::cout << "\nКопируем... \n";
     std::string filepathEnd = path.string() + "/" + folder_name;
     for (const auto& entry : fs::recursive_directory_iterator(path))
@@ -116,18 +128,12 @@ void createFolder(const fs::path& path)
         std::string filepath = entry.path().string();
 
         if (allowedNames.count(filename) > 0)
-        {   
-            std::cout << "\n\tСоздаю ";
-            std::cout << filepath;
-            std::cout << " === ";
-            std::cout << filepathEnd;
-            std::cout << " \n ";
-            copyDirectory(filepath, filepathEnd);
+        {
+            //std::cout << "\n\tСоздаю " << filepath << " === " << filepathEnd << " \n ";
+            copyDirectory(filepath, filepathEnd, filename);
+            //std::cout << "\tПапка с путем " << filepath << " Скопирована в " << filepathEnd << " C именем " << filename << "\n";
         }
     }
-    std::cout << "\nСжимаем...\n";
-    zip(filepathEnd);
-
 }
 
 
@@ -137,7 +143,6 @@ int main()
     setlocale(LC_ALL, "Russian");
     avtor();
     input();
-
 
     do
     {
