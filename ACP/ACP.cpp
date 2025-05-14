@@ -22,7 +22,7 @@ int inp;
 int inp2;
 std::string forderName = "zdahalove_";
 std::string mainDir = "D:/ServerMine";
-std::string ver = "0.1.0 (DEV)";
+const std::string VER = "0.1.0";
 
 
 int main()
@@ -30,7 +30,7 @@ int main()
     setlocale(LC_ALL, "Russian");
 
 
-    bk.avtor(ver);
+    bk.avtor(VER);
     bk.input(mainDir, forderName);
 
 
@@ -78,7 +78,7 @@ int main()
                 } while (inp2 != 0);
 
                 system("CLS");
-                bk.avtor(ver);
+                bk.avtor(VER);
                 bk.input(mainDir, forderName);
                 break;
             }
@@ -122,7 +122,7 @@ int main()
                 } while (inp2 != 0);
 
                 system("CLS");
-                bk.avtor(ver);
+                bk.avtor(VER);
                 bk.input(mainDir, forderName);
                 break;
             }
@@ -139,7 +139,7 @@ int main()
             default:
             {
                 system("CLS");
-                bk.avtor(ver);
+                bk.avtor(VER);
                 bk.input(mainDir, forderName);
                 break;
             }

@@ -1,2 +1,5 @@
 ﻿  ACP.cpp
-  ACP.vcxproj -> C:\git\ACP\x64\Debug\ACP.exe
+  backup.cpp
+F:\git\ACP\ACP\backup.cpp(129,48): warning C4101: e: неиспользованная локальная переменная
+  Создание кода...
+  ACP.vcxproj -> F:\git\ACP\x64\Debug\ACP.exe
