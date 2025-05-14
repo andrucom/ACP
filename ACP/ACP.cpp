@@ -10,6 +10,9 @@
 #include <cstdlib>
 #include "backup.h"
 
+// TODO
+// Сделать проверку на наличие папки
+// Изменение с фильтром: Добавление, изменение, удаление 
 
 
 
@@ -17,17 +20,16 @@ backup::Back bk;
 std::unordered_set<std::string> allowedNames = { "dahalove","dahalove_nether","dahalove_the_end" };
 
 int inp;
-std::string folder_name = "zdahalove_";
-std::string path = "D:/ServerMine";
-std::string Ver = "0.1.0 (DEV)";
+std::string forderName = "zdahalove_";
+std::string mainDir = "D:/ServerMine";
+std::string ver = "0.1.0 (DEV)";
 
 
 int main()
 {
     setlocale(LC_ALL, "Russian");
-    bk.avtor(Ver);
-
-    bk.input(inp, path, folder_name);
+    bk.avtor(ver);
+    bk.input(mainDir, forderName);
 
 
 
@@ -40,8 +42,9 @@ int main()
             {
                 system("CLS");
                 std::cout << "Вывод всех папок: \n";
-                bk.patchAll(path);
-                bk.input(inp, path, folder_name);
+                bk.patchAll(mainDir);
+                bk.input(mainDir, forderName);
+                
                 break;
             }
             case 2:
@@ -50,29 +53,39 @@ int main()
                 std::cout << "Вывод некоторых папок:        " << "Фильтр: ";
                 bk.show(allowedNames);
                 std::cout << "\n";
-                bk.patchConcrect(path, allowedNames);
-                bk.input(inp,path,folder_name);
+                bk.patchConcrect(mainDir, allowedNames);
+                bk.input(mainDir,forderName);
                 break;
             }
             case 3:
             {
                 system("CLS");
-                bk.createFolder(path, folder_name, allowedNames);
-                bk.input(inp, path, folder_name);
+                bk.createFolder(mainDir, forderName, allowedNames);
+                bk.input(mainDir, forderName);
+                bk.OpenMainDir(mainDir);
                 break;
             }
             case 4:
             {
                 system("CLS");
-                path = bk.ChangeMainDir();
-                bk.input(inp, path, folder_name);
+                mainDir = bk.ChangeMainDir();
+                bk.input(mainDir, forderName);
                 break;
+            }
+            case 5: 
+            {
+                
+                system("CLS");
+                forderName = bk.ChangeFolderName();
+                bk.input(mainDir, forderName);
+                break;
+                
             }
             default:
             {
                 system("CLS");
-                bk.avtor(Ver);
-                bk.input(inp, path, folder_name);
+                bk.avtor(ver);
+                bk.input(mainDir, forderName);
                 break;
             }
         }

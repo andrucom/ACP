@@ -2,8 +2,7 @@
 #include <fstream>
 #include <string>
 #include <unordered_set>
-
-
+#include <algorithm>
 
 
 namespace fs = std::filesystem;
@@ -13,6 +12,16 @@ namespace backup
 	class Back
 	{
 	public:
+		std::string ChangeFolderName()
+		{
+			std::string newfoldername;
+			std::cout << "Задайте имя создаваемой папки: ";
+			std::cin >> newfoldername;
+			std::cout << "Готово! ";
+			std::cout << "\n\n";
+			return newfoldername;
+
+		}
 		std::string ChangeMainDir()
 		{
 			std::string newpath;
@@ -38,10 +47,11 @@ namespace backup
 		void avtor(const std::string Ver);
 		void patchAll(const fs::path path);
 		void patchConcrect(const fs::path path, const std::unordered_set<std::string> allowedNames);
-		void input(const int inp, const fs::path path, const std::string folder_name);
+		void input(const fs::path path, const std::string folder_name);
 		void zip(const std::string& folderPath);
 		void copyDirectory(const fs::path& source, const fs::path& destination, const std::string origname);
 		void createFolder(const fs::path& path, std::string folder_name, std::unordered_set<std::string> allowedNames);
+		void OpenMainDir(const std::string path);
 
 	};
 }
