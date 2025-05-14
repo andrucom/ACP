@@ -38,7 +38,8 @@ namespace backup
     {
         if (fs::exists(path))
         {
-
+            std::cout << "Все находящиеся в " << path << "\n";
+            std::cout << "---------------------- \n";
             for (const auto& entry : fs::directory_iterator(path))
             {
 
@@ -57,6 +58,10 @@ namespace backup
 
     void Back::patchConcrect(const fs::path path, const std::unordered_set<std::string> allowedNames)
     {
+        std::cout << "Все находящиеся в " << path << "    С фильтром: ";
+        show(allowedNames);
+        std::cout << "---------------------- \n";
+
         if (fs::exists(path))
         { 
             for (const auto& entry : fs::directory_iterator(path))
@@ -82,12 +87,10 @@ namespace backup
         std::cout << "\n\nОсновная папка: " << path << "\n";
         std::cout << "Название новой папки: " << folder_name;
         std::cout << "\n============================= \n";
-        std::cout << "1 - Просмотреть все папки в главной папк\n";
-        std::cout << "2 - Просмотреть все папки, которые соответсвуют фильтру\n";
+        std::cout << "1 - Работа с папками\n";
+        std::cout << "2 - Изменение пути\n";
         std::cout << "3 - Сделать бекап\n";
-        std::cout << "4 - Изменить основную папку\n";
-        std::cout << "5 - Изменить имя создаваемой папки\n";
-        std::cout << "\n>>";
+        std::cout << "\n>> ";
 
     }
 

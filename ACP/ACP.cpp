@@ -11,13 +11,12 @@
 #include "backup.h"
 
 // TODO
-// Сделать проверку на наличие папки
 // Изменение с фильтром: Добавление, изменение, удаление 
 
 
 
 backup::Back bk;
-std::unordered_set<std::string> allowedNames = { "dahalove","dahalove_nether","dahalove_the_end" };
+std::unordered_set<std::string> allowedNames = { "dahalove","dahalove_nether","dahalove_the_end"};
 
 int inp;
 int inp2;
@@ -42,22 +41,91 @@ int main()
             case 1:
             {
                 system("CLS");
-                std::cout << "Вывод всех папок: \n";
-                bk.patchAll(mainDir);
+                do
+                {
+                    std::cout << "_____________________\n";
+                    std::cout << "1 - Вывод всех папок\n";
+                    std::cout << "2 - Вывод всех с фильтром\n\n";
+                    std::cout << "0 - Меню\n";
+                    std::cout << ">> ";
+
+                    std::cin >> inp2;
+
+                    switch (inp2)
+                    {
+                        case 1:
+                        {
+                            system("CLS");
+                            bk.patchAll(mainDir);
+                            break;
+                        }
+                        case 2:
+                        {
+                            system("CLS");
+                            std::cout << "\n";
+                            bk.patchConcrect(mainDir, allowedNames);
+                            break;
+                        }
+                        default:
+                        {
+                            system("CLS");
+                            break;
+                        }
+                    }
+
+
+                } while (inp2 != 0);
+
+                system("CLS");
+                bk.avtor(ver);
                 bk.input(mainDir, forderName);
-                
                 break;
             }
+
             case 2:
             {
                 system("CLS");
-                std::cout << "Вывод некоторых папок:        " << "Фильтр: ";
-                bk.show(allowedNames);
-                std::cout << "\n";
-                bk.patchConcrect(mainDir, allowedNames);
-                bk.input(mainDir,forderName);
+
+                do
+                {
+
+                    std::cout << "_____________________\n";
+                    std::cout << "1 - Поменять основную папку\n";
+                    std::cout << "2 - Поменять создаваемую папку\n\n ";
+                    std::cout << "0 - Меню\n";
+                    std::cout << ">> ";
+
+                    std::cin >> inp2;
+
+               
+                    switch (inp2)
+                    {
+                        case 1:
+                        {
+                            system("CLS");
+                            mainDir = bk.ChangeMainDir();
+                            break;
+                        }
+                        case 2:
+                        {
+                            system("CLS");
+                            forderName = bk.ChangeFolderName();
+                            break;
+                        }
+                        default:
+                        {
+                            system("CLS");
+                            break;
+                        }
+                    }
+                } while (inp2 != 0);
+
+                system("CLS");
+                bk.avtor(ver);
+                bk.input(mainDir, forderName);
                 break;
             }
+
             case 3:
             {
                 system("CLS");
@@ -66,22 +134,7 @@ int main()
                 bk.OpenMainDir(mainDir);
                 break;
             }
-            case 4:
-            {
-                system("CLS");
-                mainDir = bk.ChangeMainDir();
-                bk.input(mainDir, forderName);
-                break;
-            }
-            case 5: 
-            {
-                
-                system("CLS");
-                forderName = bk.ChangeFolderName();
-                bk.input(mainDir, forderName);
-                break;
-                
-            }
+
             default:
             {
                 system("CLS");
