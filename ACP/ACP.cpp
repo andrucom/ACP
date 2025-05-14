@@ -20,6 +20,7 @@ backup::Back bk;
 std::unordered_set<std::string> allowedNames = { "dahalove","dahalove_nether","dahalove_the_end" };
 
 int inp;
+int inp2;
 std::string forderName = "zdahalove_";
 std::string mainDir = "D:/ServerMine";
 std::string ver = "0.1.0 (DEV)";
