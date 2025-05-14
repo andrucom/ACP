@@ -12,7 +12,7 @@
 
 // TODO
 // Изменение с фильтром: Добавление, изменение, удаление 
-
+// Сохранение измененных параметров 
 
 
 backup::Back bk;
@@ -28,9 +28,10 @@ std::string ver = "0.1.0 (DEV)";
 int main()
 {
     setlocale(LC_ALL, "Russian");
+
+
     bk.avtor(ver);
     bk.input(mainDir, forderName);
-
 
 
     do
