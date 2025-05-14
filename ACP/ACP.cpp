@@ -18,8 +18,8 @@ std::unordered_set<std::string> allowedNames = { "dahalove","dahalove_nether","d
 
 int inp;
 std::string folder_name = "zdahalove_";
-const char* path = "D:/ServerMine";
-char Ver[] = "0.0.1";
+std::string path = "D:/ServerMine";
+std::string Ver = "0.1.0 (DEV)";
 
 
 int main()
@@ -58,6 +58,13 @@ int main()
             {
                 system("CLS");
                 bk.createFolder(path, folder_name, allowedNames);
+                bk.input(inp, path, folder_name);
+                break;
+            }
+            case 4:
+            {
+                system("CLS");
+                path = bk.ChangeMainDir();
                 bk.input(inp, path, folder_name);
                 break;
             }

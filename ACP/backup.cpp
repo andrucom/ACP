@@ -19,7 +19,7 @@ namespace fs = std::filesystem;
 namespace backup
 {
 
-    void Back::show(std::unordered_set<std::string> s) {
+    void Back::show(const std::unordered_set<std::string> s) {
         std::unordered_set<std::string>::iterator it;
         for (it = s.begin(); it != s.end(); ++it) {
             std::cout << *it << " ";
@@ -27,15 +27,14 @@ namespace backup
         std::cout << std::endl;
     }
 
-    void Back::avtor(std::string Ver)
+    void Back::avtor(const std::string Ver)
     {
         std::cout << "Разработчик: Чупиков Андрей Петрович\n";
-        std::cout << "Версия: ";
-        std::cout << Ver;
+        std::cout << "Версия: " << Ver;
         std::cout << "\n\n\n";
     }
 
-    void Back::patchAll(fs::path path)
+    void Back::patchAll(const fs::path path)
     {
         for (const auto& entry : fs::directory_iterator(path))
         {
@@ -46,7 +45,7 @@ namespace backup
         std::cout << "____________________________\n\n";
     }
 
-    void Back::patchConcrect(fs::path path, std::unordered_set<std::string> allowedNames)
+    void Back::patchConcrect(const fs::path path, const std::unordered_set<std::string> allowedNames)
     {
         for (const auto& entry : fs::directory_iterator(path))
         {
@@ -61,7 +60,7 @@ namespace backup
         std::cout << "____________________________\n\n";
     }
 
-    void Back::input(int inp, fs::path path, std::string folder_name)
+    void Back::input(const int inp, const fs::path path, const std::string folder_name)
     {
         std::cout << "\n\nОсновная папка: " << path << "\n";
         std::cout << "Название новой папки: " << folder_name;
@@ -69,6 +68,7 @@ namespace backup
         std::cout << "1 - Просмотреть все папки в главной папк\n";
         std::cout << "2 - Просмотреть все папки, которые соответсвуют фильтру\n";
         std::cout << "3 - Сделать бекап\n";
+        std::cout << "4 - Изменить основную папку";
         std::cout << "\nВыбор: ";
 
     }
@@ -133,5 +133,6 @@ namespace backup
             }
         }
     }
+   
   
 }
