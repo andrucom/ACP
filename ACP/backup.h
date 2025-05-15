@@ -51,6 +51,7 @@ namespace backup
 		void zip(const std::string& folderPath);
 		void copyDirectory(fs::path& source, const fs::path& destination, std::string origname);
 		void createFolder(const fs::path& path, std::string folder_name, std::unordered_set<std::string> allowedNames);
+		void createFolderWF(const fs::path& path, std::string folder_name, std::unordered_set<std::string> allowedNames);
 		void OpenMainDir(const std::string path);
 
 	};

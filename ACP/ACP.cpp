@@ -13,6 +13,9 @@
 // TODO
 // Изменение с фильтром: Добавление, изменение, удаление 
 // Сохранение измененных параметров 
+// Выбор вывода папки
+// Добавить игнорирование создаваемой папки
+// Возможность архивировать
 
 
 backup::Back bk;
@@ -22,7 +25,7 @@ int inp;
 int inp2;
 std::string forderName = "zdahalove_";
 std::string mainDir = "D:/ServerMine";
-const std::string VER = "0.1.1";
+const std::string VER = "0.2.0 (BETA)";
 
 
 int main()
@@ -39,6 +42,7 @@ int main()
         std::cin >> inp;
         switch (inp)
         {
+            // Работа с папками
             case 1:
             {
                 system("CLS");
@@ -83,6 +87,7 @@ int main()
                 break;
             }
 
+            // Настройки папок
             case 2:
             {
                 system("CLS");
@@ -127,12 +132,42 @@ int main()
                 break;
             }
 
+            // Бекап
             case 3:
             {
                 system("CLS");
-                bk.createFolder(mainDir, forderName, allowedNames);
-                bk.input(mainDir, forderName);
-                bk.OpenMainDir(mainDir);
+
+                do
+                {
+                    std::cout << "_____________________\n";
+                    std::cout << "1 - Сделать бэкап\n";
+                    std::cout << "2 - Сделать бэкап (без фильтра)\n\n ";
+                    std::cout << "0 - Меню\n";
+                    std::cout << ">> ";
+
+                    std::cin >> inp2;
+
+                    switch (inp2)
+                    {
+                    case 1:
+                        system("CLS");
+                        bk.createFolder(mainDir, forderName, allowedNames);
+                        bk.OpenMainDir(mainDir);
+                        break;
+
+                    case 2:
+                        system("CLS");
+                        bk.createFolderWF(mainDir, forderName, allowedNames);
+                        bk.OpenMainDir(mainDir);
+                        break;
+
+                    default:
+                        system("cls");
+                        break;
+                    }
+                } while (inp2 != 0);
+
+
                 break;
             }
 
