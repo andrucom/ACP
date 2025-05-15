@@ -49,7 +49,7 @@ namespace backup
 		void patchConcrect(const fs::path path, const std::unordered_set<std::string> allowedNames);
 		void input(const fs::path path, const std::string folder_name);
 		void zip(const std::string& folderPath);
-		void copyDirectory(const fs::path& source, const fs::path& destination, const std::string origname);
+		void copyDirectory(fs::path& source, const fs::path& destination, std::string origname);
 		void createFolder(const fs::path& path, std::string folder_name, std::unordered_set<std::string> allowedNames);
 		void OpenMainDir(const std::string path);
 

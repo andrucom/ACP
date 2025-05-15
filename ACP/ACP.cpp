@@ -22,7 +22,7 @@ int inp;
 int inp2;
 std::string forderName = "zdahalove_";
 std::string mainDir = "D:/ServerMine";
-const std::string VER = "0.1.0";
+const std::string VER = "0.1.1";
 
 
 int main()

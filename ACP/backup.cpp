@@ -106,7 +106,7 @@ namespace backup
         system(command.c_str());
     }
 
-    void Back::copyDirectory(const fs::path& source, const fs::path& destination, const std::string origname) {
+    void Back::copyDirectory(fs::path& source, const fs::path& destination, std::string origname) {
      
         // Копируем рекурсивно все содержимое
 
@@ -125,6 +125,8 @@ namespace backup
 
                 fs::copy(source, sourcefolder, fs::copy_options::recursive | fs::copy_options::overwrite_existing);
                 std::cout << "\t\tПапка скопирована: " << source << " -> " << sourcefolder << "\n\n";
+
+
             }
             catch (const fs::filesystem_error& e) {
                // std::cerr << "Ошибка копирования: " << e.what() << std::endl;
@@ -138,6 +140,7 @@ namespace backup
 
     }
 
+
     void Back::createFolder(const fs::path& path, std::string folder_name, std::unordered_set<std::string> allowedNames)
     {
         // Папка
@@ -150,18 +153,23 @@ namespace backup
             std::cout << "\n>> Папка создана! " << dir_path;
             std::cout << "\nКопируем... \n";
             std::string filepathEnd = path.string() + "/" + folder_name1;
-            for (const auto& entry : fs::recursive_directory_iterator(path))
+
+            for (const auto& entry : fs::directory_iterator(path))
             {
                 std::string filename = entry.path().filename().string();
-                std::string filepath = entry.path().string();
+                fs::path filepath = entry.path();
 
                 if (allowedNames.count(filename) > 0)
                 {
+
                     //std::cout << "\n\tСоздаю " << filepath << " === " << filepathEnd << " \n ";
                     copyDirectory(filepath, filepathEnd, filename);
                     //std::cout << "\tПапка с путем " << filepath << " Скопирована в " << filepathEnd << " C именем " << filename << "\n";
+                    
                 }
             }
+       
+
         }
         else
         {
