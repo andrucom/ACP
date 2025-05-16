@@ -16,7 +16,7 @@
 // Выбор вывода папки
 // Добавить игнорирование создаваемой папки
 // Возможность архивировать
-
+// TEST
 
 backup::Back bk;
 std::unordered_set<std::string> allowedNames = { "dahalove","dahalove_nether","dahalove_the_end"};
