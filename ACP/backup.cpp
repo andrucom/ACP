@@ -14,8 +14,9 @@
 
 
 namespace fs = std::filesystem;
-
-
+std::string suffix = "zZCP";
+std::string suffix_limited = "L_";
+std::string suffix_full = "F_";
 
 namespace backup
 {
@@ -93,7 +94,7 @@ namespace backup
         std::cout << "2 - Настройки папок\n";
         std::cout << "3 - Бэкап\n";
         std::cout << "4 - Настройки";
-        std::cout << "\n>> ";
+        daw();
 
     }
 
@@ -155,7 +156,7 @@ namespace backup
         // Папка
         if (fs::exists(path))
         {
-            std::string folder_name1 = folder_name + time();
+            std::string folder_name1 = suffix + suffix_limited + folder_name + time();
             // Путь
             fs::path dir_path = path / folder_name1;
             fs::create_directory(dir_path);
@@ -197,8 +198,7 @@ namespace backup
         // Папка
         if (fs::exists(path))
         {
-            std::string folder_name1 = folder_name + time();
-            // Путь
+            std::string folder_name1 = suffix + suffix_full + folder_name + time();
             fs::path dir_path = path / folder_name1;
             fs::create_directory(dir_path);
             std::cout << "\n>> Папка создана! " << dir_path;
@@ -208,10 +208,11 @@ namespace backup
 
             for (const auto& entry : fs::directory_iterator(path))
             {
-                if (entry.path().string().find(folder_name) == std::string::npos) //entry.path() != filepathEnd
+                fs::path filepath = entry.path();
+                if (entry.path().string().find(suffix) == std::string::npos) //entry.path() != filepathEnd
                 {
                     std::string filename = entry.path().filename().string();
-                    fs::path filepath = entry.path();
+
 
                     //std::cout << "\n------ " << filepath << " " << filepathEnd;
 
@@ -219,7 +220,7 @@ namespace backup
                 }
                 else
                 {
-                    std::cout << "\n>-xxx-- ИГНОР  " << entry.path() << "\n";
+                    std::cout << "\n>-xxx-- ИГНОР  " << filepath << "\n";
                 }
             }
            

@@ -16,6 +16,12 @@ namespace backup
 		{
 			bool Zip = false;
 		};
+		std::string daw() // >>
+		{
+			std::string placeholder;
+			std::cout << "\n\n\n>> ";
+			return placeholder;
+		}
 		std::string ChangeFolderName()
 		{
 			std::string newfoldername;

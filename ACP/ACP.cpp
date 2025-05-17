@@ -14,8 +14,6 @@
 // Изменение с фильтром: Добавление, изменение, удаление 
 // Сохранение измененных параметров 
 // Выбор вывода папки
-// Добавить игнорирование создаваемой папки
-// Возможность архивировать
 
 
 backup::Back bk;
@@ -52,9 +50,9 @@ int main()
                 {
                     std::cout << "_____________________\n";
                     std::cout << "1 - Вывод всех папок\n";
-                    std::cout << "2 - Вывод всех с фильтром\n\n";
-                    std::cout << "0 - Меню\n";
-                    std::cout << ">> ";
+                    std::cout << "2 - Вывод всех с фильтром\n";
+                    std::cout << "\n0 - Меню\n";
+                    bk.daw();
 
                     std::cin >> inp2;
 
@@ -99,9 +97,10 @@ int main()
 
                     std::cout << "_____________________\n";
                     std::cout << "1 - Поменять основную папку\n";
-                    std::cout << "2 - Поменять создаваемую папку\n\n ";
-                    std::cout << "0 - Меню\n";
-                    std::cout << ">> ";
+                    std::cout << "2 - Поменять создаваемую папку\n ";
+                    std::cout << "\n0 - Меню\n";
+                    bk.daw();
+
 
                     std::cin >> inp2;
 
@@ -143,9 +142,9 @@ int main()
                 {
                     std::cout << "_____________________\n";
                     std::cout << "1 - Сделать бэкап\n";
-                    std::cout << "2 - Сделать бэкап (без фильтра)\n\n ";
-                    std::cout << "0 - Меню\n";
-                    std::cout << ">> ";
+                    std::cout << "2 - Сделать бэкап (без фильтра)\n ";
+                    std::cout << "\n0 - Меню\n";
+                    bk.daw();
 
                     std::cin >> inp2;
 
@@ -170,6 +169,9 @@ int main()
                 } while (inp2 != 0);
 
 
+                system("CLS");
+                bk.avtor(VER);
+                bk.input(mainDir, forderName);
                 break;
             }
 
@@ -179,12 +181,12 @@ int main()
 
                 do
                 {
-                std::cout << "0 - Выкл ; 1 - Вкл\n";
+                std::cout << "0 - Выкл | 1 - Вкл\n";
                 std::cout << "_____________________\n";
-                std::cout << "1 - Режим архивирования     " << "Состояние: " << settings.Zip << "\n";
-                std::cout << "2 - -----\n\n ";
-                std::cout << "0 - Меню\n";
-                std::cout << ">> ";
+                std::cout << "1 - Режим архивирования\t\t" << "Состояние: " << settings.Zip << "\n";
+                std::cout << "2 - -----\n ";
+                std::cout << "\n0 - Меню\n";
+                bk.daw();
 
                 std::cin >> inp2;
 
@@ -204,6 +206,11 @@ int main()
                 }
 
                 } while (inp2 != 0);
+
+                system("CLS");
+                bk.avtor(VER);
+                bk.input(mainDir, forderName);
+                break;
             }
 
             default:
