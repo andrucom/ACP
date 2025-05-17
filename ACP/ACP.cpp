@@ -153,13 +153,13 @@ int main()
                     {
                     case 1:
                         system("CLS");
-                        bk.createFolder(mainDir, forderName, allowedNames);
+                        bk.createFolder(mainDir, forderName, allowedNames, settings);
                         bk.OpenMainDir(mainDir);
                         break;
 
                     case 2:
                         system("CLS");
-                        bk.createFolderWF(mainDir, forderName, allowedNames);
+                        bk.createFolderWF(mainDir, forderName, allowedNames, settings);
                         bk.OpenMainDir(mainDir);
                         break;
 
@@ -177,6 +177,8 @@ int main()
             {
                 system("CLS");
 
+                do
+                {
                 std::cout << "0 - Выкл ; 1 - Вкл\n";
                 std::cout << "_____________________\n";
                 std::cout << "1 - Режим архивирования     " << "Состояние: " << settings.Zip << "\n";
@@ -186,23 +188,23 @@ int main()
 
                 std::cin >> inp2;
 
-                do
+
+                switch (inp2)
                 {
-                    switch (inp2)
-                    {
                     case 1:
                         system("cls");
-                        settings.Zip = false;
+                        settings.Zip = !settings.Zip;
                         break;
 
                     default:
                         system("cls");
+
+
                         break;
-                    }
+                }
 
                 } while (inp2 != 0);
             }
-
 
             default:
             {

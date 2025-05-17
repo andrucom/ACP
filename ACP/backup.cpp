@@ -19,7 +19,7 @@ namespace fs = std::filesystem;
 
 namespace backup
 {
-    backup::Back::Settings settings;
+    //backup::Back::Settings settings;
 
     void Back::show(const std::unordered_set<std::string> s) {
         std::unordered_set<std::string>::iterator it;
@@ -150,7 +150,7 @@ namespace backup
 
     }
 
-    void Back::createFolder(const fs::path& path, std::string folder_name, std::unordered_set<std::string> allowedNames)
+    void Back::createFolder(const fs::path& path, std::string folder_name, std::unordered_set<std::string> allowedNames, Settings settings)
     {
         // Папка
         if (fs::exists(path))
@@ -192,7 +192,7 @@ namespace backup
     }
 
     // Без фильтра
-    void Back::createFolderWF(const fs::path& path, std::string folder_name, std::unordered_set<std::string> allowedNames)
+    void Back::createFolderWF(const fs::path& path, std::string folder_name, std::unordered_set<std::string> allowedNames, Settings settings)
     {
         // Папка
         if (fs::exists(path))
@@ -205,15 +205,28 @@ namespace backup
             std::cout << "\nКопируем... \n";
             std::string filepathEnd = path.string() + "/" + folder_name1;
 
+
             for (const auto& entry : fs::directory_iterator(path))
             {
-                std::string filename = entry.path().filename().string();
-                fs::path filepath = entry.path();
+                if (entry.path() != filepathEnd)
+                {
+                    std::string filename = entry.path().filename().string();
+                    fs::path filepath = entry.path();
 
-                copyDirectory(filepath, filepathEnd, filename);
+                    std::cout << "\n------ " << filepath << " " << filepathEnd;
 
+                    copyDirectory(filepath, filepathEnd, filename);
+                }
+                else
+                {
+                    std::cout << "\nИГНОР\n " << dir_path <<" "<< filepathEnd;
+                }
             }
-
+           
+            if (settings.Zip == true)
+            {
+                zip(filepathEnd);
+            }
 
         }
         else

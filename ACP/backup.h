@@ -14,7 +14,7 @@ namespace backup
 	public:
 		struct Settings
 		{
-			bool Zip = true;
+			bool Zip = false;
 		};
 		std::string ChangeFolderName()
 		{
@@ -54,8 +54,8 @@ namespace backup
 		void input(const fs::path path, const std::string folder_name);
 		void zip(const std::string& folderPath);
 		void copyDirectory(fs::path& source, const fs::path& destination, std::string origname);
-		void createFolder(const fs::path& path, std::string folder_name, std::unordered_set<std::string> allowedNames);
-		void createFolderWF(const fs::path& path, std::string folder_name, std::unordered_set<std::string> allowedNames);
+		void createFolder(const fs::path& path, std::string folder_name, std::unordered_set<std::string> allowedNames, Settings settings);
+		void createFolderWF(const fs::path& path, std::string folder_name, std::unordered_set<std::string> allowedNames, Settings settings);
 		void OpenMainDir(const std::string path);
 
 	};
