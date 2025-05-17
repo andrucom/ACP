@@ -208,18 +208,18 @@ namespace backup
 
             for (const auto& entry : fs::directory_iterator(path))
             {
-                if (entry.path() != filepathEnd)
+                if (entry.path().string().find(folder_name) == std::string::npos) //entry.path() != filepathEnd
                 {
                     std::string filename = entry.path().filename().string();
                     fs::path filepath = entry.path();
 
-                    std::cout << "\n------ " << filepath << " " << filepathEnd;
+                    //std::cout << "\n------ " << filepath << " " << filepathEnd;
 
                     copyDirectory(filepath, filepathEnd, filename);
                 }
                 else
                 {
-                    std::cout << "\n»√ÕŒ–\n " << dir_path <<" "<< filepathEnd;
+                    std::cout << "\n>-xxx-- »√ÕŒ–  " << entry.path() << "\n";
                 }
             }
            
