@@ -16,8 +16,10 @@
 namespace fs = std::filesystem;
 
 
+
 namespace backup
 {
+    backup::Back::Settings settings;
 
     void Back::show(const std::unordered_set<std::string> s) {
         std::unordered_set<std::string>::iterator it;
@@ -90,6 +92,7 @@ namespace backup
         std::cout << "1 - Работа с папками\n";
         std::cout << "2 - Настройки папок\n";
         std::cout << "3 - Бэкап\n";
+        std::cout << "4 - Настройки";
         std::cout << "\n>> ";
 
     }
@@ -173,6 +176,11 @@ namespace backup
                     //std::cout << "\tПапка с путем " << filepath << " Скопирована в " << filepathEnd << " C именем " << filename << "\n";
                     
                 }
+            }
+            
+            if (settings.Zip == true)
+            {
+                zip(filepathEnd);
             }
        
 

@@ -12,6 +12,10 @@ namespace backup
 	class Back
 	{
 	public:
+		struct Settings
+		{
+			bool Zip = true;
+		};
 		std::string ChangeFolderName()
 		{
 			std::string newfoldername;

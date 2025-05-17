@@ -1,2 +1,7 @@
-﻿  backup.cpp
-  ACP.vcxproj -> F:\git\ACP\x64\Debug\ACP.exe
+﻿  ACP.cpp
+C:\git\ACP\ACP\ACP.cpp(182,117): error C2228: выражение слева от ".Zip" должно представлять класс, структуру или объединение
+      C:\git\ACP\ACP\ACP.cpp(182,117):
+      тип: backup::Back::Settings *
+      C:\git\ACP\ACP\ACP.cpp(182,117):
+      возможно, имеется в виду "->"
+  

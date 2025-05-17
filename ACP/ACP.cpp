@@ -19,13 +19,15 @@
 // TEST
 
 backup::Back bk;
-std::unordered_set<std::string> allowedNames = { "dahalove","dahalove_nether","dahalove_the_end"};
+std::unordered_set<std::string> allowedNames = { "dahalove","dahalove_nether","dahalove_the_end", "test1"};
 
 int inp;
 int inp2;
 std::string forderName = "zdahalove_";
-std::string mainDir = "D:/ServerMine";
+std::string mainDir = "C:/Test"; //D: / ServerMine
 const std::string VER = "0.2.0 (BETA)";
+backup::Back::Settings settings;
+
 
 
 int main()
@@ -170,6 +172,37 @@ int main()
 
                 break;
             }
+
+            case 4:
+            {
+                system("CLS");
+
+                std::cout << "0 - Выкл ; 1 - Вкл\n";
+                std::cout << "_____________________\n";
+                std::cout << "1 - Режим архивирования     " << "Состояние: " << settings.Zip << "\n";
+                std::cout << "2 - -----\n\n ";
+                std::cout << "0 - Меню\n";
+                std::cout << ">> ";
+
+                std::cin >> inp2;
+
+                do
+                {
+                    switch (inp2)
+                    {
+                    case 1:
+                        system("cls");
+                        settings.Zip = false;
+                        break;
+
+                    default:
+                        system("cls");
+                        break;
+                    }
+
+                } while (inp2 != 0);
+            }
+
 
             default:
             {
