@@ -27,11 +27,20 @@ const std::string VER = "0.2.0 (BETA)";
 backup::Back::Settings settings;
 
 
+fs::path get_appdata_path()
+{
+#ifdef _WIN32
+    return fs::path(std::getenv("LOCALAPPDATA"));
+#else
+    return fs::path(std::getenv("HOME")) / ".config";
+#endif
+}
+
 
 int main()
 {
     setlocale(LC_ALL, "Russian");
-
+    bk.init(get_appdata_path());
 
     bk.avtor(VER);
     bk.input(mainDir, forderName);

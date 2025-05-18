@@ -55,7 +55,7 @@ namespace backup
 			std::string date_str = ss.str();
 			return date_str;
 		}
-		void init();
+		void init(const fs::path path);
 		void show(const std::unordered_set<std::string> s);
 		void avtor(const std::string Ver);
 		void patchAll(const fs::path path);

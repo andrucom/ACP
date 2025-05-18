@@ -20,9 +20,17 @@ std::string suffix_full = "F_";
 
 namespace backup
 {
-    void Back::init()
+    void Back::init(const fs::path path)
     {
+        fs::path dir_path = path / "ACP";
+        if (fs::exists(dir_path))
+        {
 
+        }
+        else
+        {
+            fs::create_directory(dir_path);
+        }
     }
 
     void Back::show(const std::unordered_set<std::string> s) {
