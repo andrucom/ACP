@@ -123,6 +123,7 @@ int main()
                         {
                             system("CLS");
                             mainDir = bk.ChangeMainDir();
+                            bk.save_settings(settings, config_path);
                             break;
                         }
                         case 2:

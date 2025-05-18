@@ -299,7 +299,8 @@ namespace backup
         j = json{
             {"Zip", s.Zip},
             {"DelFolder", s.DelFolder},
-            {"OpenDir", s.OpenDir}
+            {"OpenDir", s.OpenDir},
+            {"mainDir", s.mainDir }
         };
     }
 
@@ -308,6 +309,7 @@ namespace backup
         j.at("Zip").get_to(s.Zip);
         j.at("DelFolder").get_to(s.DelFolder);
         j.at("OpenDir").get_to(s.OpenDir);
+        j.at("mainDir").get_to(s.mainDir);
     }
 
 }

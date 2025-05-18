@@ -18,6 +18,7 @@ namespace backup
 			bool Zip = false;
 			bool DelFolder = false;
 			bool OpenDir = true;
+			std::string mainDir;
 		};
 		std::string daw() // >>
 		{
