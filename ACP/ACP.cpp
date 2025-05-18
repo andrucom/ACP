@@ -12,7 +12,7 @@
 
 // TODO
 // Изменение с фильтром: Добавление, изменение, удаление 
-// Сохранение измененных параметров 
+// Сохранение измененных параметров (maindir)
 // Выбор вывода папки
 
 
@@ -35,12 +35,15 @@ fs::path get_appdata_path()
     return fs::path(std::getenv("HOME")) / ".config";
 #endif
 }
-
+fs::path config_path = get_appdata_path().string() + "/ACP/ACP_settings.json";
 
 int main()
 {
     setlocale(LC_ALL, "Russian");
+
     bk.init(get_appdata_path());
+    settings = bk.load_settings(config_path);
+
 
     bk.avtor(VER);
     bk.input(mainDir, forderName);
@@ -214,14 +217,17 @@ int main()
                     case 1:
                         system("cls");
                         settings.Zip = !settings.Zip;
+                        bk.save_settings(settings, config_path);
                         break;
                     case 2:
                         system("cls");
                         settings.DelFolder = !settings.DelFolder;
+                        bk.save_settings(settings, config_path);
                         break;
                     case 3:
                         system("cls");
                         settings.OpenDir = !settings.OpenDir;
+                        bk.save_settings(settings, config_path);
                         break;
                     default:
                         system("cls");

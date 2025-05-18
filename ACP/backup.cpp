@@ -20,6 +20,7 @@ std::string suffix_full = "F_";
 
 namespace backup
 {
+
     void Back::init(const fs::path path)
     {
         fs::path dir_path = path / "ACP";
@@ -271,5 +272,42 @@ namespace backup
 
     }
 
+    void Back::save_settings(const Settings& settings, const fs::path& path) {
+        json j = settings; // Автоматически вызывает to_json
+        std::ofstream file(path);
+        if (file) {
+            file << j.dump(4);
+        }
+        else {
+            throw std::runtime_error("Failed to save settings");
+        }
+    }
+
+    Back::Settings Back::load_settings(const fs::path& path) {
+        if (!fs::exists(path)) {
+            return Settings{}; // Возвращаем настройки по умолчанию
+        }
+
+        std::ifstream file(path);
+        json j;
+        file >> j;
+        return j.get<Settings>(); // Автоматически вызывает from_json
+    }
+
+    // Реализация to_json
+    void to_json(json& j, const Back::Settings& s) {
+        j = json{
+            {"Zip", s.Zip},
+            {"DelFolder", s.DelFolder},
+            {"OpenDir", s.OpenDir}
+        };
+    }
+
+    // Реализация from_json
+    void from_json(const json& j, Back::Settings& s) {
+        j.at("Zip").get_to(s.Zip);
+        j.at("DelFolder").get_to(s.DelFolder);
+        j.at("OpenDir").get_to(s.OpenDir);
+    }
 
 }

@@ -3,8 +3,9 @@
 #include <string>
 #include <unordered_set>
 #include <algorithm>
+#include "json.hpp"
 
-
+using json = nlohmann::json;
 namespace fs = std::filesystem;
 
 namespace backup
@@ -67,5 +68,17 @@ namespace backup
 		void createFolderWF(const fs::path& path, std::string folder_name, std::unordered_set<std::string> allowedNames, Settings settings);
 		void OpenMainDir(const std::string path);
 
+		// Сохранение настроек в файл
+		static void save_settings(const Settings& settings, const fs::path& path);
+
+		// Загрузка настроек из файла
+		static Settings load_settings(const fs::path& path);
+
+
 	};
+	void to_json(json& j, const Back::Settings& s);
+
+	// Десериализация JSON в Settings
+	void from_json(const json& j, Back::Settings& s);
+
 }
