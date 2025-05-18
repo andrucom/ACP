@@ -20,7 +20,10 @@ std::string suffix_full = "F_";
 
 namespace backup
 {
-    //backup::Back::Settings settings;
+    void Back::init()
+    {
+
+    }
 
     void Back::show(const std::unordered_set<std::string> s) {
         std::unordered_set<std::string>::iterator it;
@@ -140,8 +143,9 @@ namespace backup
 
             }
             catch (const fs::filesystem_error& e) {
-               std::cerr << "\t-->> Ошибка копирования: " << e.what() << std::endl;
-
+               std::cerr << "\t-->> Ошибка копирования: " << e.what() << "\n\n";
+               
+               system("pause");
             }
         }
         else
@@ -182,6 +186,12 @@ namespace backup
             if (settings.Zip == true)
             {
                 zip(filepathEnd);
+                if (settings.DelFolder == true)
+                {
+                    std::cout << "\nУдаление\n";
+                    remove_all(path / folder_name1);
+                    std::cout << "Папка удалена!\n";
+                }
             }
        
 
@@ -227,6 +237,13 @@ namespace backup
             if (settings.Zip == true)
             {
                 zip(filepathEnd);
+                std::cout << "\nСоздан\n";
+                if (settings.DelFolder == true)
+                {
+                    std::cout << "\nУдаление\n";
+                    remove_all(path / folder_name1);
+                    std::cout << "Папка удалена!\n";
+                }
             }
 
         }

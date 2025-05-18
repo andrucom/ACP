@@ -21,7 +21,7 @@ std::unordered_set<std::string> allowedNames = { "dahalove","dahalove_nether","d
 
 int inp;
 int inp2;
-std::string forderName = "zdahalove_";
+std::string forderName = "BackUp_";
 std::string mainDir = "C:/Test"; //D: / ServerMine
 const std::string VER = "0.2.0 (BETA)";
 backup::Back::Settings settings;
@@ -153,13 +153,21 @@ int main()
                     case 1:
                         system("CLS");
                         bk.createFolder(mainDir, forderName, allowedNames, settings);
-                        bk.OpenMainDir(mainDir);
+                        if (settings.OpenDir == true)
+                        {
+                            bk.OpenMainDir(mainDir);
+                        }
+
                         break;
 
                     case 2:
                         system("CLS");
                         bk.createFolderWF(mainDir, forderName, allowedNames, settings);
-                        bk.OpenMainDir(mainDir);
+                        if (settings.OpenDir == true)
+                        {
+                            bk.OpenMainDir(mainDir);
+                        }
+
                         break;
 
                     default:
@@ -183,8 +191,9 @@ int main()
                 {
                 std::cout << "0 - Выкл | 1 - Вкл\n";
                 std::cout << "_____________________\n";
-                std::cout << "1 - Режим архивирования\t\t" << "Состояние: " << settings.Zip << "\n";
-                std::cout << "2 - -----\n ";
+                std::cout << "1 - Режим архивирования\t\t\t\t" << "Состояние: " << settings.Zip << "\n";
+                std::cout << "2 - Удалить создаваемую папку после .zip\t" << "Состояние: " << settings.DelFolder << "\n";
+                std::cout << "3 - Открыть основную папку после бэкапа\t\t" << "Состояние: " << settings.OpenDir << "\n";
                 std::cout << "\n0 - Меню\n";
                 bk.daw();
 
@@ -197,11 +206,16 @@ int main()
                         system("cls");
                         settings.Zip = !settings.Zip;
                         break;
-
+                    case 2:
+                        system("cls");
+                        settings.DelFolder = !settings.DelFolder;
+                        break;
+                    case 3:
+                        system("cls");
+                        settings.OpenDir = !settings.OpenDir;
+                        break;
                     default:
                         system("cls");
-
-
                         break;
                 }
 
