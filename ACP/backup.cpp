@@ -294,15 +294,24 @@ namespace backup
         return j.get<Settings>(); // Автоматически вызывает from_json
     }
 
-    void Back::ChangeMainDir(const fs::path& config_path,Back::Settings& s)
+    void Back::ChangeMainDir(const fs::path& config_path, Back::Settings& s)
     {
-        std::string newpath;
         std::cout << "Введите путь папки: ";
-        std::cin >> newpath;
-        s.mainDir = newpath;
+        std::cin >> s.mainDir;
         backup::Back::save_settings(s, config_path);
         std::cout << "Готово! ";
         std::cout << "\n\n";
+
+    }
+
+    void Back::ChangeFolderName(const fs::path& config_path, Back::Settings& s)
+    {
+        std::cout << "Задайте имя создаваемой папки: ";
+        std::cin >> s.FolderName;
+        backup::Back::save_settings(s, config_path);
+        std::cout << "Готово! ";
+        std::cout << "\n\n";
+
 
     }
 
@@ -312,7 +321,8 @@ namespace backup
             {"Zip", s.Zip},
             {"DelFolder", s.DelFolder},
             {"OpenDir", s.OpenDir},
-            {"mainDir", s.mainDir }
+            {"mainDir", s.mainDir },
+            {"FolderName", s.FolderName }
         };
     }
 
@@ -322,6 +332,8 @@ namespace backup
         j.at("DelFolder").get_to(s.DelFolder);
         j.at("OpenDir").get_to(s.OpenDir);
         j.at("mainDir").get_to(s.mainDir);
+        j.at("FolderName").get_to(s.FolderName);
+
     }
 
 }

@@ -19,6 +19,7 @@ namespace backup
 			bool DelFolder = false;
 			bool OpenDir = true;
 			std::string mainDir = "C:/Test";
+			std::string FolderName = "BackUp_";
 		};
 		std::string daw() // >>
 		{
@@ -26,16 +27,7 @@ namespace backup
 			std::cout << "\n\n\n>> ";
 			return placeholder;
 		}
-		std::string ChangeFolderName()
-		{
-			std::string newfoldername;
-			std::cout << "Задайте имя создаваемой папки: ";
-			std::cin >> newfoldername;
-			std::cout << "Готово! ";
-			std::cout << "\n\n";
-			return newfoldername;
-
-		}
+		
 
 		std::string time()
 		{
@@ -59,6 +51,8 @@ namespace backup
 		void createFolder(const fs::path& path, std::string folder_name, std::unordered_set<std::string> allowedNames, Settings settings);
 		void createFolderWF(const fs::path& path, std::string folder_name, std::unordered_set<std::string> allowedNames, Settings settings);
 		void OpenMainDir(const std::string path);
+		void ChangeMainDir(const fs::path& config_path, Back::Settings& s);
+		void ChangeFolderName(const fs::path& config_path, Back::Settings& s);
 
 		// Сохранение настроек в файл
 		static void save_settings(const Settings& settings, const fs::path& path);
@@ -66,7 +60,7 @@ namespace backup
 		// Загрузка настроек из файла
 		static Settings load_settings(const fs::path& path);
 
-		void ChangeMainDir(const fs::path& config_path, Back::Settings& s);
+
 
 
 	};

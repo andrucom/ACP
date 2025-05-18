@@ -12,7 +12,6 @@
 
 // TODO
 // Изменение с фильтром: Добавление, изменение, удаление 
-// Сохранение измененных параметров (settings.mainDir)
 // Выбор вывода папки
 
 
@@ -21,9 +20,9 @@ std::unordered_set<std::string> allowedNames = { "dahalove","dahalove_nether","d
 
 int inp;
 int inp2;
-std::string forderName = "BackUp_";
+//std::string settings.FolderName = "BackUp_";
 //std::string settings.mainDir = "C:/Test"; //D: / ServerMine
-const std::string VER = "0.2.0 (BETA)";
+const std::string VER = "0.2.0";
 backup::Back::Settings settings;
 
 
@@ -46,7 +45,7 @@ int main()
 
 
     bk.avtor(VER);
-    bk.input(settings.mainDir, forderName);
+    bk.input(settings.mainDir, settings.FolderName);
 
 
     do
@@ -95,7 +94,7 @@ int main()
 
                 system("CLS");
                 bk.avtor(VER);
-                bk.input(settings.mainDir, forderName);
+                bk.input(settings.mainDir, settings.FolderName);
                 break;
             }
 
@@ -129,7 +128,7 @@ int main()
                         case 2:
                         {
                             system("CLS");
-                            forderName = bk.ChangeFolderName();
+                            bk.ChangeFolderName(config_path,settings);
                             break;
                         }
                         default:
@@ -142,7 +141,7 @@ int main()
 
                 system("CLS");
                 bk.avtor(VER);
-                bk.input(settings.mainDir, forderName);
+                bk.input(settings.mainDir, settings.FolderName);
                 break;
             }
 
@@ -165,7 +164,7 @@ int main()
                     {
                     case 1:
                         system("CLS");
-                        bk.createFolder(settings.mainDir, forderName, allowedNames, settings);
+                        bk.createFolder(settings.mainDir, settings.FolderName, allowedNames, settings);
                         if (settings.OpenDir == true)
                         {
                             bk.OpenMainDir(settings.mainDir);
@@ -175,7 +174,7 @@ int main()
 
                     case 2:
                         system("CLS");
-                        bk.createFolderWF(settings.mainDir, forderName, allowedNames, settings);
+                        bk.createFolderWF(settings.mainDir, settings.FolderName, allowedNames, settings);
                         if (settings.OpenDir == true)
                         {
                             bk.OpenMainDir(settings.mainDir);
@@ -192,7 +191,7 @@ int main()
 
                 system("CLS");
                 bk.avtor(VER);
-                bk.input(settings.mainDir, forderName);
+                bk.input(settings.mainDir, settings.FolderName);
                 break;
             }
 
@@ -239,7 +238,7 @@ int main()
 
                 system("CLS");
                 bk.avtor(VER);
-                bk.input(settings.mainDir, forderName);
+                bk.input(settings.mainDir, settings.FolderName);
                 break;
             }
 
@@ -247,7 +246,7 @@ int main()
             {
                 system("CLS");
                 bk.avtor(VER);
-                bk.input(settings.mainDir, forderName);
+                bk.input(settings.mainDir, settings.FolderName);
                 break;
             }
         }
