@@ -18,7 +18,7 @@ namespace backup
 			bool Zip = false;
 			bool DelFolder = false;
 			bool OpenDir = true;
-			std::string mainDir;
+			std::string mainDir = "C:/Test";
 		};
 		std::string daw() // >>
 		{
@@ -36,16 +36,7 @@ namespace backup
 			return newfoldername;
 
 		}
-		std::string ChangeMainDir()
-		{
-			std::string newpath;
-			std::cout << "Введите путь папки: ";
-			std::cin >> newpath;
-			std::cout << "Готово! ";
-			std::cout << "\n\n";
-			return newpath;
-			
-		}
+
 		std::string time()
 		{
 			auto now = std::chrono::system_clock::now();
@@ -74,6 +65,8 @@ namespace backup
 
 		// Загрузка настроек из файла
 		static Settings load_settings(const fs::path& path);
+
+		void ChangeMainDir(const fs::path& config_path, Back::Settings& s);
 
 
 	};

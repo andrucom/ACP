@@ -12,7 +12,7 @@
 
 // TODO
 // Изменение с фильтром: Добавление, изменение, удаление 
-// Сохранение измененных параметров (maindir)
+// Сохранение измененных параметров (settings.mainDir)
 // Выбор вывода папки
 
 
@@ -22,7 +22,7 @@ std::unordered_set<std::string> allowedNames = { "dahalove","dahalove_nether","d
 int inp;
 int inp2;
 std::string forderName = "BackUp_";
-std::string mainDir = "C:/Test"; //D: / ServerMine
+//std::string settings.mainDir = "C:/Test"; //D: / ServerMine
 const std::string VER = "0.2.0 (BETA)";
 backup::Back::Settings settings;
 
@@ -46,7 +46,7 @@ int main()
 
 
     bk.avtor(VER);
-    bk.input(mainDir, forderName);
+    bk.input(settings.mainDir, forderName);
 
 
     do
@@ -73,14 +73,14 @@ int main()
                         case 1:
                         {
                             system("CLS");
-                            bk.patchAll(mainDir);
+                            bk.patchAll(settings.mainDir);
                             break;
                         }
                         case 2:
                         {
                             system("CLS");
                             std::cout << "\n";
-                            bk.patchConcrect(mainDir, allowedNames);
+                            bk.patchConcrect(settings.mainDir, allowedNames);
                             break;
                         }
                         default:
@@ -95,7 +95,7 @@ int main()
 
                 system("CLS");
                 bk.avtor(VER);
-                bk.input(mainDir, forderName);
+                bk.input(settings.mainDir, forderName);
                 break;
             }
 
@@ -122,7 +122,7 @@ int main()
                         case 1:
                         {
                             system("CLS");
-                            mainDir = bk.ChangeMainDir();
+                            bk.ChangeMainDir(config_path, settings);
                             bk.save_settings(settings, config_path);
                             break;
                         }
@@ -142,7 +142,7 @@ int main()
 
                 system("CLS");
                 bk.avtor(VER);
-                bk.input(mainDir, forderName);
+                bk.input(settings.mainDir, forderName);
                 break;
             }
 
@@ -165,20 +165,20 @@ int main()
                     {
                     case 1:
                         system("CLS");
-                        bk.createFolder(mainDir, forderName, allowedNames, settings);
+                        bk.createFolder(settings.mainDir, forderName, allowedNames, settings);
                         if (settings.OpenDir == true)
                         {
-                            bk.OpenMainDir(mainDir);
+                            bk.OpenMainDir(settings.mainDir);
                         }
 
                         break;
 
                     case 2:
                         system("CLS");
-                        bk.createFolderWF(mainDir, forderName, allowedNames, settings);
+                        bk.createFolderWF(settings.mainDir, forderName, allowedNames, settings);
                         if (settings.OpenDir == true)
                         {
-                            bk.OpenMainDir(mainDir);
+                            bk.OpenMainDir(settings.mainDir);
                         }
 
                         break;
@@ -192,7 +192,7 @@ int main()
 
                 system("CLS");
                 bk.avtor(VER);
-                bk.input(mainDir, forderName);
+                bk.input(settings.mainDir, forderName);
                 break;
             }
 
@@ -239,7 +239,7 @@ int main()
 
                 system("CLS");
                 bk.avtor(VER);
-                bk.input(mainDir, forderName);
+                bk.input(settings.mainDir, forderName);
                 break;
             }
 
@@ -247,7 +247,7 @@ int main()
             {
                 system("CLS");
                 bk.avtor(VER);
-                bk.input(mainDir, forderName);
+                bk.input(settings.mainDir, forderName);
                 break;
             }
         }

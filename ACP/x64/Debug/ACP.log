@@ -1,9 +1,4 @@
 ﻿  ACP.cpp
   backup.cpp
-F:\git\ACP\ACP\backup.h(46,14): error C2065: settings: необъявленный идентификатор
-  (компиляция исходного файла "ACP.cpp")
-  
-F:\git\ACP\ACP\backup.h(46,14): error C2065: settings: необъявленный идентификатор
-  (компиляция исходного файла "backup.cpp")
-  
   Создание кода...
+  ACP.vcxproj -> F:\git\ACP\x64\Debug\ACP.exe

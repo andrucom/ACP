@@ -294,6 +294,18 @@ namespace backup
         return j.get<Settings>(); // Автоматически вызывает from_json
     }
 
+    void Back::ChangeMainDir(const fs::path& config_path,Back::Settings& s)
+    {
+        std::string newpath;
+        std::cout << "Введите путь папки: ";
+        std::cin >> newpath;
+        s.mainDir = newpath;
+        backup::Back::save_settings(s, config_path);
+        std::cout << "Готово! ";
+        std::cout << "\n\n";
+
+    }
+
     // Реализация to_json
     void to_json(json& j, const Back::Settings& s) {
         j = json{
