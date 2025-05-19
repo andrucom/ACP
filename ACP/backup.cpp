@@ -14,9 +14,9 @@
 
 
 namespace fs = std::filesystem;
-std::string prefix = "zZCP";
-std::string suffix_limited = "L_";
-std::string suffix_full = "F_";
+std::string prefix = u8"zZCP";
+std::string suffix_limited = u8"L_";
+std::string suffix_full = u8"F_";
 
 namespace backup
 {
@@ -44,38 +44,38 @@ namespace backup
 
     void Back::avtor(const std::string Ver)
     {
-        std::cout << "Разработчик: Чупиков Андрей Петрович\n";
-        std::cout << "Версия: " << Ver;
-        std::cout << "\n\n\n";
+        std::cout << u8"Разработчик: Чупиков Андрей Петрович\n";
+        std::cout << u8"Версия: " << Ver;
+        std::cout << u8"\n\n\n";
     }
 
     void Back::patchAll(const fs::path path)
     {
         if (fs::exists(path))
         {
-            std::cout << "Все находящиеся в " << path << "\n";
-            std::cout << "---------------------- \n";
+            std::cout << u8"Все находящиеся в " << path.u8string() << u8"\n";
+            std::cout << u8"---------------------- \n";
             for (const auto& entry : fs::directory_iterator(path))
             {
 
-                std::cout << "\t" << entry.path().stem() << std::endl;
+                std::cout << u8"\t" << entry.path().stem().u8string() << std::endl;
 
             }
-            std::cout << "____________________________\n\n";
+            std::cout << u8"____________________________\n\n";
         }
         else 
         {
 
-            std::cerr << "\t\tОшибка: " << path << " не существует\n";
+            std::cerr << u8"\t\tОшибка: " << path.u8string() << " не существует\n";
         }
         
     }
 
     void Back::patchConcrect(const fs::path path, const std::unordered_set<std::string> allowedNames)
     {
-        std::cout << "Все находящиеся в " << path << "    С фильтром: ";
+        std::cout << u8"Все находящиеся в " << path.u8string() << u8"    С фильтром: ";
         show(allowedNames);
-        std::cout << "---------------------- \n";
+        std::cout << u8"---------------------- \n";
 
         if (fs::exists(path))
         { 
@@ -85,27 +85,27 @@ namespace backup
 
                 if (allowedNames.count(filename) > 0)
                 {
-                    std::cout << "\t" << entry.path().stem() << std::endl;
+                    std::cout << "\t" << entry.path().stem().u8string() << std::endl;
                 }
 
             }
-            std::cout << "____________________________\n\n";
+            std::cout << u8"____________________________\n\n";
         }
         else
         {
-            std::cerr << "\t\tОшибка: " << path << " не существует\n";
+            std::cerr << u8"\t\tОшибка: " << path.u8string() << u8" не существует\n";
         }
     }
 
     void Back::input(const fs::path path, const std::string folder_name)
     {
-        std::cout << "\n\nОсновная папка: " << path << "\n";
-        std::cout << "Название новой папки: " << folder_name;
-        std::cout << "\n============================= \n";
-        std::cout << "1 - Работа с папками\n";
-        std::cout << "2 - Настройки папок\n";
-        std::cout << "3 - Бэкап\n";
-        std::cout << "4 - Настройки";
+        std::cout << u8"\n\nОсновная папка: " << path.u8string() << u8"\n";
+        std::cout << u8"Название новой папки: " << folder_name;
+        std::cout << u8"\n============================= \n";
+        std::cout << u8"1 - Работа с папками\n";
+        std::cout << u8"2 - Настройки папок\n";
+        std::cout << u8"3 - Бэкап\n";
+        std::cout << u8"4 - Настройки";
         daw();
 
     }
@@ -114,7 +114,8 @@ namespace backup
         std::string command;
 
         #ifdef _WIN32
-        command = "powershell Compress-Archive -Path " + folderPath + " -DestinationPath " + folderPath + ".zip";
+        //command = "powershell Compress-Archive -Path " + folderPath + " -DestinationPath \"" + folderPath + "\".zip";
+        command = "powershell -Command \"Compress-Archive -Path '\"" + folderPath + "\"' -DestinationPath '\"" + folderPath + ".zip\"'\"";
         #else
         command = "zip -r " + folderPath + ".zip " + folderPath;
         #endif
@@ -147,19 +148,19 @@ namespace backup
                 //std::cout << "\n\tСоздаю " << source << " --- " << destination << " \n ";
 
                 fs::copy(source, sourcefolder, fs::copy_options::recursive | fs::copy_options::overwrite_existing);
-                std::cout << "\tПапка скопирована: " << source << " -> " << sourcefolder << "\n\n";
+                std::cout << u8"\tПапка скопирована: " << source.u8string() << u8" -> " << sourcefolder.u8string() << u8"\n\n";
 
 
             }
             catch (const fs::filesystem_error& e) {
-               std::cerr << "\t-->> Ошибка копирования: " << e.what() << "\n\n";
+               std::cerr << u8"\t-->> Ошибка копирования: " << e.what() << u8"\n\n";
                
                system("pause");
             }
         }
         else
         {
-            std::cerr << "\t\t-->> Ошибка: " << source << " не существует\n";
+            std::cerr << u8"\t\t-->> Ошибка: " << source.u8string() << u8" не существует\n";
         }
 
     }
@@ -173,8 +174,8 @@ namespace backup
             // Путь
             fs::path dir_path = path / folder_name1;
             fs::create_directory(dir_path);
-            std::cout << "\n>> Папка создана! " << dir_path;
-            std::cout << "\nКопируем... \n";
+            std::cout << u8"\n>> Папка создана! " << dir_path;
+            std::cout << u8"\nКопируем... \n";
             std::string filepathEnd = path.string() + "/" + folder_name1;
 
             for (const auto& entry : fs::directory_iterator(path))
@@ -197,9 +198,9 @@ namespace backup
                 zip(filepathEnd);
                 if (settings.DelFolder == true)
                 {
-                    std::cout << "\nУдаление\n";
+                    std::cout << u8"\nУдаление\n";
                     remove_all(path / folder_name1);
-                    std::cout << "Папка удалена!\n";
+                    std::cout << u8"Папка удалена!\n";
                 }
             }
        
@@ -207,7 +208,7 @@ namespace backup
         }
         else
         {
-            std::cerr << "\t\t-->> Ошибка: " << path << " не существует\n";
+            std::cerr << u8"\t\t-->> Ошибка: " << path.u8string() << u8" не существует\n";
         }
     }
 
@@ -220,8 +221,8 @@ namespace backup
             std::string folder_name1 = prefix + suffix_full + folder_name + time();
             fs::path dir_path = path / folder_name1;
             fs::create_directory(dir_path);
-            std::cout << "\n>> Папка создана! " << dir_path;
-            std::cout << "\nКопируем... \n";
+            std::cout << u8"\n>> Папка создана! " << dir_path;
+            std::cout << u8"\nКопируем... \n";
             std::string filepathEnd = path.string() + "/" + folder_name1;
 
 
@@ -239,26 +240,26 @@ namespace backup
                 }
                 else
                 {
-                    std::cout << "\n>-xxx-- ИГНОР  " << filepath << "\n";
+                    std::cout << u8"\n>-xxx-- ИГНОР  " << filepath << "\n";
                 }
             }
            
             if (settings.Zip == true)
             {
                 zip(filepathEnd);
-                std::cout << "\nСоздан\n";
+                std::cout << u8"\nСоздан\n";
                 if (settings.DelFolder == true)
                 {
-                    std::cout << "\nУдаление\n";
+                    std::cout << u8"\nУдаление\n";
                     remove_all(path / folder_name1);
-                    std::cout << "Папка удалена!\n";
+                    std::cout << u8"Папка удалена!\n";
                 }
             }
 
         }
         else
         {
-            std::cerr << "\t\t-->> Ошибка: " << path << " не существует\n";
+            std::cerr << u8"\t\t-->> Ошибка: " << path << u8" не существует\n";
         }
     }
 
@@ -296,21 +297,22 @@ namespace backup
 
     void Back::ChangeMainDir(const fs::path& config_path, Back::Settings& s)
     {
-        std::cout << "Введите путь папки: ";
-        std::cin >> s.mainDir;
+        std::cout << u8"Введите путь папки: ";
+        std::getline(std::cin, s.mainDir);
         backup::Back::save_settings(s, config_path);
-        std::cout << "Готово! ";
-        std::cout << "\n\n";
+        std::cout << u8"Готово! ";
+        std::cout << u8"\n\n";
 
     }
 
     void Back::ChangeFolderName(const fs::path& config_path, Back::Settings& s)
     {
-        std::cout << "Задайте имя создаваемой папки: ";
-        std::cin >> s.FolderName;
+        
+        std::cout << u8"Задайте имя создаваемой папки: ";
+        std::getline(std::cin, s.FolderName);
         backup::Back::save_settings(s, config_path);
-        std::cout << "Готово! ";
-        std::cout << "\n\n";
+        std::cout << u8"Готово! ";
+        std::cout << u8"\n\n";
 
 
     }

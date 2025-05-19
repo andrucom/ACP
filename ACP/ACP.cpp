@@ -22,7 +22,7 @@ int inp;
 int inp2;
 //std::string settings.FolderName = "BackUp_";
 //std::string settings.mainDir = "C:/Test"; //D: / ServerMine
-const std::string VER = "0.2.0";
+const std::string VER = "0.2.1 (BETA)";
 backup::Back::Settings settings;
 
 
@@ -38,19 +38,27 @@ fs::path config_path = get_appdata_path().string() + "/ACP/ACP_settings.json";
 
 int main()
 {
-    setlocale(LC_ALL, "Russian");
+
+
+    setlocale(LC_ALL, "ru_RU.UTF-8");
+    SetConsoleCP(CP_UTF8);
+    SetConsoleOutputCP(CP_UTF8);
+
 
     bk.init(get_appdata_path());
     settings = bk.load_settings(config_path);
-
+    bk.save_settings(settings, config_path);
 
     bk.avtor(VER);
     bk.input(settings.mainDir, settings.FolderName);
 
 
+
     do
     {
+
         std::cin >> inp;
+
         switch (inp)
         {
             // Работа с папками
@@ -59,10 +67,10 @@ int main()
                 system("CLS");
                 do
                 {
-                    std::cout << "_____________________\n";
-                    std::cout << "1 - Вывод всех папок\n";
-                    std::cout << "2 - Вывод всех с фильтром\n";
-                    std::cout << "\n0 - Меню\n";
+                    std::cout << u8"_____________________\n";
+                    std::cout << u8"1 - Вывод всех папок\n";
+                    std::cout << u8"2 - Вывод всех с фильтром\n";
+                    std::cout << u8"\n0 - Меню\n";
                     bk.daw();
 
                     std::cin >> inp2;
@@ -106,10 +114,10 @@ int main()
                 do
                 {
 
-                    std::cout << "_____________________\n";
-                    std::cout << "1 - Поменять основную папку\n";
-                    std::cout << "2 - Поменять создаваемую папку\n ";
-                    std::cout << "\n0 - Меню\n";
+                    std::cout << u8"_____________________\n";
+                    std::cout << u8"1 - Поменять основную папку\n";
+                    std::cout << u8"2 - Поменять создаваемую папку\n ";
+                    std::cout << u8"\n0 - Меню\n";
                     bk.daw();
 
 
@@ -121,13 +129,14 @@ int main()
                         case 1:
                         {
                             system("CLS");
+                            std::cin.ignore();
                             bk.ChangeMainDir(config_path, settings);
-                            bk.save_settings(settings, config_path);
                             break;
                         }
                         case 2:
                         {
                             system("CLS");
+                            std::cin.ignore();
                             bk.ChangeFolderName(config_path,settings);
                             break;
                         }
@@ -152,10 +161,10 @@ int main()
 
                 do
                 {
-                    std::cout << "_____________________\n";
-                    std::cout << "1 - Сделать бэкап\n";
-                    std::cout << "2 - Сделать бэкап (без фильтра)\n ";
-                    std::cout << "\n0 - Меню\n";
+                    std::cout << u8"_____________________\n";
+                    std::cout << u8"1 - Сделать бэкап\n";
+                    std::cout << u8"2 - Сделать бэкап (без фильтра)\n ";
+                    std::cout << u8"\n0 - Меню\n";
                     bk.daw();
 
                     std::cin >> inp2;
@@ -201,12 +210,12 @@ int main()
 
                 do
                 {
-                std::cout << "0 - Выкл | 1 - Вкл\n";
-                std::cout << "_____________________\n";
-                std::cout << "1 - Режим архивирования\t\t\t\t" << "Состояние: " << settings.Zip << "\n";
-                std::cout << "2 - Удалить создаваемую папку после .zip\t" << "Состояние: " << settings.DelFolder << "\n";
-                std::cout << "3 - Открыть основную папку после бэкапа\t\t" << "Состояние: " << settings.OpenDir << "\n";
-                std::cout << "\n0 - Меню\n";
+                std::cout << u8"0 - Выкл | 1 - Вкл\n";
+                std::cout << u8"_____________________\n";
+                std::cout << u8"1 - Режим архивирования\t\t\t\t" << u8"Состояние: " << settings.Zip << "\n";
+                std::cout << u8"2 - Удалить создаваемую папку после .zip\t" << u8"Состояние: " << settings.DelFolder << "\n";
+                std::cout << u8"3 - Открыть основную папку после бэкапа\t\t" << u8"Состояние: " << settings.OpenDir << "\n";
+                std::cout << u8"\n0 - Меню\n";
                 bk.daw();
 
                 std::cin >> inp2;
@@ -250,6 +259,7 @@ int main()
                 break;
             }
         }
+        
     } while (inp != 0);
 
     

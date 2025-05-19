@@ -24,7 +24,7 @@ namespace backup
 		std::string daw() // >>
 		{
 			std::string placeholder;
-			std::cout << "\n\n\n>> ";
+			std::cout << u8"\n\n\n>> ";
 			return placeholder;
 		}
 		
