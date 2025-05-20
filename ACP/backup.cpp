@@ -14,9 +14,9 @@
 
 
 namespace fs = std::filesystem;
-std::string prefix = u8"zZCP";
-std::string suffix_limited = u8"L_";
-std::string suffix_full = u8"F_";
+std::string prefix = "zZCP";
+std::string suffix_limited = "L_";
+std::string suffix_full = "F_";
 
 namespace backup
 {
