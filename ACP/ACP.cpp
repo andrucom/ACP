@@ -1,4 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
+#define WINVER 0x0601  // Минимум Windows 7
+#define _WIN32_WINNT 0x0601
+#define NTDDI_VERSION 0x06010000
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -41,7 +44,7 @@ int main()
 
 
     //setlocale(LC_ALL, "RUS");
-    setlocale(LC_ALL, "ru_RU.UTF-8");
+    //setlocale(LC_ALL, "ru_RU.UTF-8");
 
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);

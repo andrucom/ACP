@@ -11,8 +11,6 @@
 #include "backup.h"
 
 
-
-
 namespace fs = std::filesystem;
 std::string prefix = "zZCP";
 std::string suffix_limited = "L_";
@@ -275,9 +273,11 @@ namespace backup
 
     void Back::save_settings(const Settings& settings, const fs::path& path) {
         json j = settings; // Автоматически вызывает to_json
-        std::ofstream file(path);
+        std::ofstream file(path, std::ios::binary);
         if (file) {
-            file << j.dump(4);
+            file << "\xEF\xBB\xBF";
+            file << j.dump(4) << "\u0000";
+
         }
         else {
             throw std::runtime_error("Failed to save settings");
@@ -302,8 +302,7 @@ namespace backup
         std::cout << "Введите путь папки: ";
         std::getline(std::cin, s.mainDir);
         backup::Back::save_settings(s, config_path);
-        std::cout << "Готово! " << s.mainDir;
-        std::cout << "\n\n";
+        std::cout << "Готово! " << "\n\n";
 
     }
 
@@ -313,8 +312,7 @@ namespace backup
         std::cout << "Задайте имя создаваемой папки: ";
         std::getline(std::cin, s.FolderName);
         backup::Back::save_settings(s, config_path);
-        std::cout << "Готово! ";
-        std::cout << "\n\n";
+        std::cout << "Готово! " << "\n\n";
 
 
     }
