@@ -1,4 +1,4 @@
-﻿#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -22,7 +22,7 @@ int inp;
 int inp2;
 //std::string settings.FolderName = "BackUp_";
 //std::string settings.mainDir = "C:/Test"; //D: / ServerMine
-const std::string VER = "0.2.1 (BETA)";
+const std::string VER = "0.2.1 (BETA_C)";
 backup::Back::Settings settings;
 
 
@@ -40,9 +40,15 @@ int main()
 {
 
 
+    //setlocale(LC_ALL, "RUS");
     setlocale(LC_ALL, "ru_RU.UTF-8");
-    SetConsoleCP(CP_UTF8);
-    SetConsoleOutputCP(CP_UTF8);
+
+    //SetConsoleCP(CP_UTF8);
+    //SetConsoleOutputCP(CP_UTF8);
+
+    //std::locale::global(std::locale("ru_RU.UTF-8"));
+    //std::cin.imbue(std::locale());
+    //std::cout.imbue(std::locale());
 
 
     bk.init(get_appdata_path());

@@ -44,8 +44,8 @@ namespace backup
 
     void Back::avtor(const std::string Ver)
     {
-        std::cout << u8"Разработчик: Чупиков Андрей Петрович\n";
-        std::cout << u8"Версия: " << Ver;
+        std::cout << u8"Р Р°Р·СЂР°Р±РѕС‚С‡РёРє: Р§СѓРїРёРєРѕРІ РђРЅРґСЂРµР№ РџРµС‚СЂРѕРІРёС‡\n";
+        std::cout << u8"Р’РµСЂСЃРёСЏ: " << Ver;
         std::cout << u8"\n\n\n";
     }
 
@@ -53,7 +53,7 @@ namespace backup
     {
         if (fs::exists(path))
         {
-            std::cout << u8"Все находящиеся в " << path.u8string() << u8"\n";
+            std::cout << u8"Р’СЃРµ РЅР°С…РѕРґСЏС‰РёРµСЃСЏ РІ " << path.u8string() << u8"\n";
             std::cout << u8"---------------------- \n";
             for (const auto& entry : fs::directory_iterator(path))
             {
@@ -66,14 +66,14 @@ namespace backup
         else 
         {
 
-            std::cerr << u8"\t\tОшибка: " << path.u8string() << " не существует\n";
+            std::cerr << u8"\t\tРћС€РёР±РєР°: " << path.u8string() << " РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚\n";
         }
         
     }
 
     void Back::patchConcrect(const fs::path path, const std::unordered_set<std::string> allowedNames)
     {
-        std::cout << u8"Все находящиеся в " << path.u8string() << u8"    С фильтром: ";
+        std::cout << u8"Р’СЃРµ РЅР°С…РѕРґСЏС‰РёРµСЃСЏ РІ " << path.u8string() << u8"    РЎ С„РёР»СЊС‚СЂРѕРј: ";
         show(allowedNames);
         std::cout << u8"---------------------- \n";
 
@@ -93,19 +93,19 @@ namespace backup
         }
         else
         {
-            std::cerr << u8"\t\tОшибка: " << path.u8string() << u8" не существует\n";
+            std::cerr << u8"\t\tРћС€РёР±РєР°: " << path.u8string() << u8" РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚\n";
         }
     }
 
     void Back::input(const fs::path path, const std::string folder_name)
     {
-        std::cout << u8"\n\nОсновная папка: " << path.u8string() << u8"\n";
-        std::cout << u8"Название новой папки: " << folder_name;
+        std::cout << u8"\n\nРћСЃРЅРѕРІРЅР°СЏ РїР°РїРєР°: " << path.u8string() << u8"\n";
+        std::cout << u8"РќР°Р·РІР°РЅРёРµ РЅРѕРІРѕР№ РїР°РїРєРё: " << folder_name;
         std::cout << u8"\n============================= \n";
-        std::cout << u8"1 - Работа с папками\n";
-        std::cout << u8"2 - Настройки папок\n";
-        std::cout << u8"3 - Бэкап\n";
-        std::cout << u8"4 - Настройки";
+        std::cout << u8"1 - Р Р°Р±РѕС‚Р° СЃ РїР°РїРєР°РјРё\n";
+        std::cout << u8"2 - РќР°СЃС‚СЂРѕР№РєРё РїР°РїРѕРє\n";
+        std::cout << u8"3 - Р‘СЌРєР°Рї\n";
+        std::cout << u8"4 - РќР°СЃС‚СЂРѕР№РєРё";
         daw();
 
     }
@@ -126,13 +126,13 @@ namespace backup
     void Back::copyDirectory(fs::path& source, const fs::path& destination, std::string origname) {
      
 
-        // Папка
+        // РџР°РїРєР°
         if (fs::exists(source))
         { 
             try {
                 std::string folder_name1 = origname;
                 fs::path sourcefolder = destination.string() + "/" + folder_name1;
-                // Путь
+                // РџСѓС‚СЊ
                 fs::path dir_path = destination / folder_name1;
                 if (fs::is_directory(source))
                 {
@@ -144,38 +144,38 @@ namespace backup
                 }
 
 
-                //std::cout << "\tПапка в: " << sourcefolder.string() << " С именем " << folder_name ;
-                //std::cout << "\n\tСоздаю " << source << " --- " << destination << " \n ";
+                //std::cout << "\tРџР°РїРєР° РІ: " << sourcefolder.string() << " РЎ РёРјРµРЅРµРј " << folder_name ;
+                //std::cout << "\n\tРЎРѕР·РґР°СЋ " << source << " --- " << destination << " \n ";
 
                 fs::copy(source, sourcefolder, fs::copy_options::recursive | fs::copy_options::overwrite_existing);
-                std::cout << u8"\tПапка скопирована: " << source.u8string() << u8" -> " << sourcefolder.u8string() << u8"\n\n";
+                std::cout << u8"\tРџР°РїРєР° СЃРєРѕРїРёСЂРѕРІР°РЅР°: " << source.u8string() << u8" -> " << sourcefolder.u8string() << u8"\n\n";
 
 
             }
             catch (const fs::filesystem_error& e) {
-               std::cerr << u8"\t-->> Ошибка копирования: " << e.what() << u8"\n\n";
+               std::cerr << u8"\t-->> РћС€РёР±РєР° РєРѕРїРёСЂРѕРІР°РЅРёСЏ: " << e.what() << u8"\n\n";
                
                system("pause");
             }
         }
         else
         {
-            std::cerr << u8"\t\t-->> Ошибка: " << source.u8string() << u8" не существует\n";
+            std::cerr << u8"\t\t-->> РћС€РёР±РєР°: " << source.u8string() << u8" РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚\n";
         }
 
     }
 
     void Back::createFolder(const fs::path& path, std::string folder_name, std::unordered_set<std::string> allowedNames, Settings settings)
     {
-        // Папка
+        // РџР°РїРєР°
         if (fs::exists(path))
         {
             std::string folder_name1 = prefix + suffix_limited + folder_name + time();
-            // Путь
+            // РџСѓС‚СЊ
             fs::path dir_path = path / folder_name1;
             fs::create_directory(dir_path);
-            std::cout << u8"\n>> Папка создана! " << dir_path;
-            std::cout << u8"\nКопируем... \n";
+            std::cout << u8"\n>> РџР°РїРєР° СЃРѕР·РґР°РЅР°! " << dir_path;
+            std::cout << u8"\nРљРѕРїРёСЂСѓРµРј... \n";
             std::string filepathEnd = path.string() + "/" + folder_name1;
 
             for (const auto& entry : fs::directory_iterator(path))
@@ -186,9 +186,9 @@ namespace backup
                 if (allowedNames.count(filename) > 0)
                 {
 
-                    //std::cout << "\n\tСоздаю " << filepath << " === " << filepathEnd << " \n ";
+                    //std::cout << "\n\tРЎРѕР·РґР°СЋ " << filepath << " === " << filepathEnd << " \n ";
                     copyDirectory(filepath, filepathEnd, filename);
-                    //std::cout << "\tПапка с путем " << filepath << " Скопирована в " << filepathEnd << " C именем " << filename << "\n";
+                    //std::cout << "\tРџР°РїРєР° СЃ РїСѓС‚РµРј " << filepath << " РЎРєРѕРїРёСЂРѕРІР°РЅР° РІ " << filepathEnd << " C РёРјРµРЅРµРј " << filename << "\n";
                     
                 }
             }
@@ -198,9 +198,9 @@ namespace backup
                 zip(filepathEnd);
                 if (settings.DelFolder == true)
                 {
-                    std::cout << u8"\nУдаление\n";
+                    std::cout << u8"\nРЈРґР°Р»РµРЅРёРµ\n";
                     remove_all(path / folder_name1);
-                    std::cout << u8"Папка удалена!\n";
+                    std::cout << u8"РџР°РїРєР° СѓРґР°Р»РµРЅР°!\n";
                 }
             }
        
@@ -208,21 +208,21 @@ namespace backup
         }
         else
         {
-            std::cerr << u8"\t\t-->> Ошибка: " << path.u8string() << u8" не существует\n";
+            std::cerr << u8"\t\t-->> РћС€РёР±РєР°: " << path.u8string() << u8" РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚\n";
         }
     }
 
-    // Без фильтра
+    // Р‘РµР· С„РёР»СЊС‚СЂР°
     void Back::createFolderWF(const fs::path& path, std::string folder_name, std::unordered_set<std::string> allowedNames, Settings settings)
     {
-        // Папка
+        // РџР°РїРєР°
         if (fs::exists(path))
         {
             std::string folder_name1 = prefix + suffix_full + folder_name + time();
             fs::path dir_path = path / folder_name1;
             fs::create_directory(dir_path);
-            std::cout << u8"\n>> Папка создана! " << dir_path;
-            std::cout << u8"\nКопируем... \n";
+            std::cout << u8"\n>> РџР°РїРєР° СЃРѕР·РґР°РЅР°! " << dir_path;
+            std::cout << u8"\nРљРѕРїРёСЂСѓРµРј... \n";
             std::string filepathEnd = path.string() + "/" + folder_name1;
 
 
@@ -240,26 +240,26 @@ namespace backup
                 }
                 else
                 {
-                    std::cout << u8"\n>-xxx-- ИГНОР  " << filepath << "\n";
+                    std::cout << u8"\n>-xxx-- РР“РќРћР   " << filepath << "\n";
                 }
             }
            
             if (settings.Zip == true)
             {
                 zip(filepathEnd);
-                std::cout << u8"\nСоздан\n";
+                std::cout << u8"\nРЎРѕР·РґР°РЅ\n";
                 if (settings.DelFolder == true)
                 {
-                    std::cout << u8"\nУдаление\n";
+                    std::cout << u8"\nРЈРґР°Р»РµРЅРёРµ\n";
                     remove_all(path / folder_name1);
-                    std::cout << u8"Папка удалена!\n";
+                    std::cout << u8"РџР°РїРєР° СѓРґР°Р»РµРЅР°!\n";
                 }
             }
 
         }
         else
         {
-            std::cerr << u8"\t\t-->> Ошибка: " << path << u8" не существует\n";
+            std::cerr << u8"\t\t-->> РћС€РёР±РєР°: " << path << u8" РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚\n";
         }
     }
 
@@ -274,7 +274,7 @@ namespace backup
     }
 
     void Back::save_settings(const Settings& settings, const fs::path& path) {
-        json j = settings; // Автоматически вызывает to_json
+        json j = settings; // РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРё РІС‹Р·С‹РІР°РµС‚ to_json
         std::ofstream file(path);
         if (file) {
             file << j.dump(4);
@@ -286,21 +286,23 @@ namespace backup
 
     Back::Settings Back::load_settings(const fs::path& path) {
         if (!fs::exists(path)) {
-            return Settings{}; // Возвращаем настройки по умолчанию
+            return Settings{}; // Р’РѕР·РІСЂР°С‰Р°РµРј РЅР°СЃС‚СЂРѕР№РєРё РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
         }
 
         std::ifstream file(path);
         json j;
         file >> j;
-        return j.get<Settings>(); // Автоматически вызывает from_json
+        return j.get<Settings>(); // РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРё РІС‹Р·С‹РІР°РµС‚ from_json
     }
 
     void Back::ChangeMainDir(const fs::path& config_path, Back::Settings& s)
     {
-        std::cout << u8"Введите путь папки: ";
+
+
+        std::cout << u8"Р’РІРµРґРёС‚Рµ РїСѓС‚СЊ РїР°РїРєРё: ";
         std::getline(std::cin, s.mainDir);
         backup::Back::save_settings(s, config_path);
-        std::cout << u8"Готово! ";
+        std::cout << u8"Р“РѕС‚РѕРІРѕ! " << s.mainDir;
         std::cout << u8"\n\n";
 
     }
@@ -308,27 +310,27 @@ namespace backup
     void Back::ChangeFolderName(const fs::path& config_path, Back::Settings& s)
     {
         
-        std::cout << u8"Задайте имя создаваемой папки: ";
+        std::cout << u8"Р—Р°РґР°Р№С‚Рµ РёРјСЏ СЃРѕР·РґР°РІР°РµРјРѕР№ РїР°РїРєРё: ";
         std::getline(std::cin, s.FolderName);
         backup::Back::save_settings(s, config_path);
-        std::cout << u8"Готово! ";
+        std::cout << u8"Р“РѕС‚РѕРІРѕ! ";
         std::cout << u8"\n\n";
 
 
     }
 
-    // Реализация to_json
+    // Р РµР°Р»РёР·Р°С†РёСЏ to_json
     void to_json(json& j, const Back::Settings& s) {
         j = json{
             {"Zip", s.Zip},
             {"DelFolder", s.DelFolder},
             {"OpenDir", s.OpenDir},
-            {"mainDir", s.mainDir },
+            {"mainDir", s.mainDir},
             {"FolderName", s.FolderName }
         };
     }
 
-    // Реализация from_json
+    // Р РµР°Р»РёР·Р°С†РёСЏ from_json
     void from_json(const json& j, Back::Settings& s) {
         j.at("Zip").get_to(s.Zip);
         j.at("DelFolder").get_to(s.DelFolder);

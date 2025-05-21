@@ -34,7 +34,7 @@ namespace backup
 			auto now = std::chrono::system_clock::now();
 			auto in_time_t = std::chrono::system_clock::to_time_t(now);
 
-			// Форматируем дату
+			// Р¤РѕСЂРјР°С‚РёСЂСѓРµРј РґР°С‚Сѓ
 			std::stringstream ss;
 			ss << std::put_time(std::localtime(&in_time_t), "%d.%m.%Y_%H.%M");
 			std::string date_str = ss.str();
@@ -54,10 +54,10 @@ namespace backup
 		void ChangeMainDir(const fs::path& config_path, Back::Settings& s);
 		void ChangeFolderName(const fs::path& config_path, Back::Settings& s);
 
-		// Сохранение настроек в файл
+		// РЎРѕС…СЂР°РЅРµРЅРёРµ РЅР°СЃС‚СЂРѕРµРє РІ С„Р°Р№Р»
 		static void save_settings(const Settings& settings, const fs::path& path);
 
-		// Загрузка настроек из файла
+		// Р—Р°РіСЂСѓР·РєР° РЅР°СЃС‚СЂРѕРµРє РёР· С„Р°Р№Р»Р°
 		static Settings load_settings(const fs::path& path);
 
 
@@ -66,7 +66,7 @@ namespace backup
 	};
 	void to_json(json& j, const Back::Settings& s);
 
-	// Десериализация JSON в Settings
+	// Р”РµСЃРµСЂРёР°Р»РёР·Р°С†РёСЏ JSON РІ Settings
 	void from_json(const json& j, Back::Settings& s);
 
 }
