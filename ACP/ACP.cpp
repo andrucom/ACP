@@ -44,7 +44,7 @@ int main()
 
 
     //setlocale(LC_ALL, "RUS");
-    //setlocale(LC_ALL, "ru_RU.UTF-8");
+    setlocale(LC_ALL, "ru_RU.UTF-8");
 
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
