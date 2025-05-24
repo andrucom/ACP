@@ -21,6 +21,7 @@ namespace backup
 			std::string mainDir = "C:/Test";
 			std::string FolderName = "BackUp_";
 		};
+
 		std::string daw() // >>
 		{
 			std::string placeholder;

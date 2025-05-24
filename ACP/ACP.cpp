@@ -29,21 +29,42 @@ const std::string VER = "0.2.1 (BETA_CА)";
 backup::Back::Settings settings;
 
 
+std::string get_setlocale()
+{
+#ifdef _WIN32
+    std::string placeholder;
+    std::cout << "\t\twin32\n";
+    setlocale(LC_ALL, "ru_RU.UTF-8");
+    return placeholder;
+#else
+    std::string placeholder;
+    std::cout << "\t\tnot !! win32\n";
+    setlocale(LC_ALL, "Russian");
+    return placeholder;
+#endif
+}
+
 fs::path get_appdata_path()
 {
 #ifdef _WIN32
     return fs::path(std::getenv("LOCALAPPDATA"));
+
+
 #else
-    return fs::path(std::getenv("HOME")) / ".config";
+    return fs::path(std::getenv("LOCALAPPDATA"));
+
+
 #endif
+
 }
+
 fs::path config_path = get_appdata_path().string() + "/ACP/ACP_settings.json";
 
 int main()
 {
+    get_setlocale();
 
-
-    setlocale(LC_ALL, "RUS.UTF8");
+    //setlocale(LC_ALL, "RUS.UTF8");
     //setlocale(LC_ALL, "ru_RU.UTF-8");
 
     SetConsoleCP(CP_UTF8);
