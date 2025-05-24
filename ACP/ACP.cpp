@@ -35,6 +35,8 @@ std::string get_setlocale()
     std::string placeholder;
     std::cout << "\t\twin32\n";
     setlocale(LC_ALL, "ru_RU.UTF-8");
+    SetConsoleCP(CP_UTF8);
+    SetConsoleOutputCP(CP_UTF8);
     return placeholder;
 #else
     std::string placeholder;
@@ -62,13 +64,10 @@ fs::path config_path = get_appdata_path().string() + "/ACP/ACP_settings.json";
 
 int main()
 {
-    get_setlocale();
 
     //setlocale(LC_ALL, "RUS.UTF8");
     //setlocale(LC_ALL, "ru_RU.UTF-8");
 
-    SetConsoleCP(CP_UTF8);
-    SetConsoleOutputCP(CP_UTF8);
 
     //std::locale::global(std::locale("ru_RU.UTF-8"));
     //std::cin.imbue(std::locale());
@@ -76,6 +75,9 @@ int main()
 
 
     bk.init(get_appdata_path());
+    
+    get_setlocale();
+
     settings = bk.load_settings(config_path);
     bk.save_settings(settings, config_path);
 
