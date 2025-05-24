@@ -25,42 +25,14 @@ int inp;
 int inp2;
 //std::string settings.FolderName = "BackUp_";
 //std::string settings.mainDir = "C:/Test"; //D: / ServerMine
-const std::string VER = "0.2.1 (BETA_CА)";
+const std::string VER = "0.2.1";
 backup::Back::Settings settings;
 
 
-std::string get_setlocale()
-{
-#ifdef _WIN32
-    std::string placeholder;
-    std::cout << "\t\twin32\n";
-    setlocale(LC_ALL, "ru_RU.UTF-8");
-    SetConsoleCP(CP_UTF8);
-    SetConsoleOutputCP(CP_UTF8);
-    return placeholder;
-#else
-    std::string placeholder;
-    std::cout << "\t\tnot !! win32\n";
-    setlocale(LC_ALL, "Russian");
-    return placeholder;
-#endif
-}
-
-fs::path get_appdata_path()
-{
-#ifdef _WIN32
-    return fs::path(std::getenv("LOCALAPPDATA"));
 
 
-#else
-    return fs::path(std::getenv("LOCALAPPDATA"));
 
-
-#endif
-
-}
-
-fs::path config_path = get_appdata_path().string() + "/ACP/ACP_settings.json";
+fs::path config_path = bk.get_appdata_path().string() + "/ACP/ACP_settings.json";
 
 int main()
 {
@@ -74,9 +46,9 @@ int main()
     //std::cout.imbue(std::locale());
 
 
-    bk.init(get_appdata_path());
+    bk.init(bk.get_appdata_path());
     
-    get_setlocale();
+    bk.get_setlocale();
 
     settings = bk.load_settings(config_path);
     bk.save_settings(settings, config_path);

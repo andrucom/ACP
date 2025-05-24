@@ -13,6 +13,7 @@ namespace backup
 	class Back
 	{
 	public:
+
 		struct Settings
 		{
 			bool Zip = false;
@@ -21,6 +22,35 @@ namespace backup
 			std::string mainDir = "C:/Test";
 			std::string FolderName = "BackUp_";
 		};
+
+
+		std::string get_setlocale()
+		{
+			#ifdef _WIN32
+				std::string placeholder;
+				std::cout << "\twin32\n";
+				setlocale(LC_ALL, "ru_RU.UTF-8");
+				SetConsoleCP(CP_UTF8);
+				SetConsoleOutputCP(CP_UTF8);
+				return placeholder;
+			#else
+				std::string placeholder;
+				std::cout << "\t\tnot !! win32\n";
+				setlocale(LC_ALL, "Russian");
+				return placeholder;
+			#endif
+		}
+
+
+		fs::path get_appdata_path()
+		{
+			#ifdef _WIN32
+				return fs::path(std::getenv("LOCALAPPDATA"));
+			#else
+				return fs::path(std::getenv("LOCALAPPDATA"));
+			#endif
+
+		}
 
 		std::string daw() // >>
 		{
