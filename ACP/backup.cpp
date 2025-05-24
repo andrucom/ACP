@@ -110,7 +110,7 @@ namespace backup
 
     void Back::zip(const std::string& folderPath) {
         std::string command;
-
+        std::cout << "\n\n !!! ПОДОЖДИТЕ ПОКА В КОНСОЛИ НЕ ПОЯВИТСЯ 'СОЗДАН' !!!\n\n";
         #ifdef _WIN32
         //command = "powershell Compress-Archive -Path " + folderPath + " -DestinationPath \"" + folderPath + "\".zip";
         command = "powershell -Command \"Compress-Archive -Path '\"" + folderPath + "\"' -DestinationPath '\"" + folderPath + ".zip\"'\"";
@@ -125,6 +125,7 @@ namespace backup
      
 
         // Папка
+
         if (fs::exists(source))
         { 
             try {
@@ -146,8 +147,8 @@ namespace backup
                 //std::cout << "\n\tСоздаю " << source << " --- " << destination << " \n ";
 
                 fs::copy(source, sourcefolder, fs::copy_options::recursive | fs::copy_options::overwrite_existing);
-                std::cout << "\tПапка скопирована: " << source.string() << " -> " << sourcefolder.string() << "\n\n";
-
+                std::cout << "\tПапка скопирована: " << source.string() << "\n\n";
+                // " -> " << sourcefolder.string() << 
 
             }
             catch (const fs::filesystem_error& e) {
@@ -227,12 +228,10 @@ namespace backup
             for (const auto& entry : fs::directory_iterator(path))
             {
                 fs::path filepath = entry.path();
+
                 if (entry.path().string().find(prefix) == std::string::npos) //entry.path() != filepathEnd
                 {
                     std::string filename = entry.path().filename().string();
-
-
-                    //std::cout << "\n------ " << filepath << " " << filepathEnd;
 
                     copyDirectory(filepath, filepathEnd, filename);
                 }
