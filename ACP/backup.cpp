@@ -95,9 +95,10 @@ namespace backup
         }
     }
 
-    void Back::input(const fs::path path, const std::string folder_name)
+    void Back::input(const fs::path path, const std::string folder_name, const fs::path pathend)
     {
         std::cout << "\n\nОсновная папка: " << path.string() << "\n";
+        std::cout << "Конечная папка: " << pathend.string() << "\n";
         std::cout << "Название новой папки: " << folder_name;
         std::cout << "\n============================= \n";
         std::cout << "1 - Работа с папками\n";
@@ -108,15 +109,11 @@ namespace backup
 
     }
 
-    void Back::zip(const std::string& folderPath) {
+    void Back::zip(const std::string& pathend) {
         std::string command;
-        std::cout << "\n\n !!! ПОДОЖДИТЕ ПОКА В КОНСОЛИ НЕ ПОЯВИТСЯ 'СОЗДАН' !!!\n\n";
-        #ifdef _WIN32
-        //command = "powershell Compress-Archive -Path " + folderPath + " -DestinationPath \"" + folderPath + "\".zip";
-        command = "powershell -Command \"Compress-Archive -Path '\"" + folderPath + "\"' -DestinationPath '\"" + folderPath + ".zip\"'\"";
-        #else
-        command = "zip -r " + folderPath + ".zip " + folderPath;
-        #endif
+        std::cout << "\n\n !!! ПОДОЖДИТЕ ПОКА В КОНСОЛИ НЕ ПОЯВИТСЯ МЕНЮ !!!\n\n";
+
+        command = "powershell -Command \"Compress-Archive -Path '\"" + pathend + "\"' -DestinationPath '\"" + pathend + ".zip\"'\"";
 
         system(command.c_str());
     }
@@ -164,18 +161,31 @@ namespace backup
 
     }
 
-    void Back::createFolder(const fs::path& path, std::string folder_name, std::unordered_set<std::string> allowedNames, Settings settings)
+    void Back::createFolder(const fs::path& path, std::string folder_name, std::unordered_set<std::string> allowedNames, Settings settings, fs::path pathend)
     {
-        // Папка
-        if (fs::exists(path))
+        std::string folder_name1 = prefix + suffix_limited + folder_name + time();
+        fs::path dir_path;
+        std::string filepathEnd;
+        pathend = pathend;
+
+        if (pathend == "")
         {
-            std::string folder_name1 = prefix + suffix_limited + folder_name + time();
-            // Путь
-            fs::path dir_path = path / folder_name1;
+            pathend = path;
+            dir_path = path / folder_name1;
+            filepathEnd = path.string() + "/" + folder_name1;
+        }
+        else
+        {
+            dir_path = pathend / folder_name1;
+            filepathEnd = pathend.string() + "/" + folder_name1;
+        }
+
+        // Папка
+        if (fs::exists(pathend))
+        {
             fs::create_directory(dir_path);
             std::cout << "\n>> Папка создана! " << dir_path;
             std::cout << "\nКопируем... \n";
-            std::string filepathEnd = path.string() + "/" + folder_name1;
 
             for (const auto& entry : fs::directory_iterator(path))
             {
@@ -198,7 +208,7 @@ namespace backup
                 if (settings.DelFolder == true)
                 {
                     std::cout << "\nУдаление\n";
-                    remove_all(path / folder_name1);
+                    remove_all(pathend / folder_name1);
                     std::cout << "Папка удалена!\n";
                 }
             }
@@ -207,23 +217,38 @@ namespace backup
         }
         else
         {
-            std::cerr << "\t\t-->> Ошибка: " << path.string() << " не существует\n";
+            std::cerr << "\t\t-->> Ошибка: " << pathend.string() << " не существует\n";
         }
     }
 
     // Без фильтра
-    void Back::createFolderWF(const fs::path& path, std::string folder_name, std::unordered_set<std::string> allowedNames, Settings settings)
+    void Back::createFolderWF(const fs::path& path, std::string folder_name, std::unordered_set<std::string> allowedNames, Settings settings, fs::path pathend)
     {
-        // Папка
-        if (fs::exists(path))
+        std::string folder_name1 = prefix + suffix_full + folder_name + time();
+        fs::path dir_path;
+        std::string filepathEnd;
+        pathend = pathend;
+
+        if (pathend == "")
         {
-            std::string folder_name1 = prefix + suffix_full + folder_name + time();
-            fs::path dir_path = path / folder_name1;
+            pathend = path;
+            dir_path = path / folder_name1;
+            filepathEnd = path.string() + "/" + folder_name1;
+        }
+        else
+        {
+            dir_path = pathend / folder_name1;
+            filepathEnd = pathend.string() + "/" + folder_name1;
+        }
+
+        // Папка
+        if (fs::exists(pathend))
+        {
+            
+
             fs::create_directory(dir_path);
             std::cout << "\n>> Папка создана! " << dir_path;
             std::cout << "\nКопируем... \n";
-            std::string filepathEnd = path.string() + "/" + folder_name1;
-
 
             for (const auto& entry : fs::directory_iterator(path))
             {
@@ -248,7 +273,7 @@ namespace backup
                 if (settings.DelFolder == true)
                 {
                     std::cout << "\nУдаление\n";
-                    remove_all(path / folder_name1);
+                    remove_all(pathend / folder_name1);
                     std::cout << "Папка удалена!\n";
                 }
             }
@@ -256,14 +281,23 @@ namespace backup
         }
         else
         {
-            std::cerr << "\t\t-->> Ошибка: " << path << " не существует\n";
+            std::cerr << "\t\t-->> Ошибка: " << pathend << " не существует\n";
         }
     }
 
-    void Back::OpenMainDir(const std::string path)
+    void Back::OpenMainDir(const std::string path, const std::string pathend)
     {
+        std::string fullpath;
 
-        std::string fullpath = "explorer " + path;
+        if (pathend == "")
+        {
+            fullpath = "explorer " + path;
+        }
+        else
+        {
+            fullpath = "explorer " + pathend;
+        }
+
         std::replace(fullpath.begin(), fullpath.end(), '/', '\\');
         system(fullpath.c_str());
 

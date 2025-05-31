@@ -20,12 +20,12 @@
 
 backup::Back bk;
 std::unordered_set<std::string> allowedNames = { "dahalove","dahalove_nether","dahalove_the_end", "test1"};
+std::string filePathEnd = "C:/test_out";
 
 int inp;
 int inp2;
-//std::string settings.FolderName = "BackUp_";
-//std::string settings.mainDir = "C:/Test"; //D: / ServerMine
-const std::string VER = "0.2.1";
+
+const std::string VER = "0.3.0 WIP";
 backup::Back::Settings settings;
 
 
@@ -36,16 +36,6 @@ fs::path config_path = bk.get_appdata_path().string() + "/ACP/ACP_settings.json"
 
 int main()
 {
-
-    //setlocale(LC_ALL, "RUS.UTF8");
-    //setlocale(LC_ALL, "ru_RU.UTF-8");
-
-
-    //std::locale::global(std::locale("ru_RU.UTF-8"));
-    //std::cin.imbue(std::locale());
-    //std::cout.imbue(std::locale());
-
-
     bk.init(bk.get_appdata_path());
     
     bk.get_setlocale();
@@ -54,7 +44,7 @@ int main()
     bk.save_settings(settings, config_path);
 
     bk.avtor(VER);
-    bk.input(settings.mainDir, settings.FolderName);
+    bk.input(settings.mainDir, settings.FolderName, filePathEnd);
 
 
 
@@ -74,6 +64,7 @@ int main()
                     std::cout << "_____________________\n";
                     std::cout << "1 - Вывод всех папок\n";
                     std::cout << "2 - Вывод всех с фильтром\n";
+                    
                     std::cout << "\n0 - Меню\n";
                     bk.daw();
 
@@ -106,7 +97,7 @@ int main()
 
                 system("CLS");
                 bk.avtor(VER);
-                bk.input(settings.mainDir, settings.FolderName);
+               bk.input(settings.mainDir, settings.FolderName, filePathEnd);
                 break;
             }
 
@@ -120,7 +111,10 @@ int main()
 
                     std::cout << "_____________________\n";
                     std::cout << "1 - Поменять основную папку\n";
-                    std::cout << "2 - Поменять создаваемую папку\n ";
+                    std::cout << "2 - Поменять создаваемую папку\n";
+                    std::cout << "3 - Изменить конечную папку\n";
+                    std::cout << "4 - Сбросить конечную папку\n";
+
                     std::cout << "\n0 - Меню\n";
                     bk.daw();
 
@@ -144,6 +138,18 @@ int main()
                             bk.ChangeFolderName(config_path,settings);
                             break;
                         }
+                        case 3:
+                            system("CLS");
+                            std::cout << "Введите путь конечной папки: ";
+                            std::cin >> filePathEnd;
+                            std::cout << "\n Готово!\n\n";
+                            break;
+                        case 4:
+                            system("CLS");
+                            std::cout << "Сброшено\n\n";
+                            filePathEnd = "";
+                            break;
+
                         default:
                         {
                             system("CLS");
@@ -154,7 +160,7 @@ int main()
 
                 system("CLS");
                 bk.avtor(VER);
-                bk.input(settings.mainDir, settings.FolderName);
+               bk.input(settings.mainDir, settings.FolderName, filePathEnd);
                 break;
             }
 
@@ -177,20 +183,20 @@ int main()
                     {
                     case 1:
                         system("CLS");
-                        bk.createFolder(settings.mainDir, settings.FolderName, allowedNames, settings);
+                        bk.createFolder(settings.mainDir, settings.FolderName, allowedNames, settings, filePathEnd);
                         if (settings.OpenDir == true)
                         {
-                            bk.OpenMainDir(settings.mainDir);
+                            bk.OpenMainDir(settings.mainDir, filePathEnd);
                         }
 
                         break;
 
                     case 2:
                         system("CLS");
-                        bk.createFolderWF(settings.mainDir, settings.FolderName, allowedNames, settings);
+                        bk.createFolderWF(settings.mainDir, settings.FolderName, allowedNames, settings, filePathEnd);
                         if (settings.OpenDir == true)
                         {
-                            bk.OpenMainDir(settings.mainDir);
+                            bk.OpenMainDir(settings.mainDir, filePathEnd);
                         }
 
                         break;
@@ -204,7 +210,7 @@ int main()
 
                 system("CLS");
                 bk.avtor(VER);
-                bk.input(settings.mainDir, settings.FolderName);
+               bk.input(settings.mainDir, settings.FolderName, filePathEnd);
                 break;
             }
 
@@ -251,7 +257,7 @@ int main()
 
                 system("CLS");
                 bk.avtor(VER);
-                bk.input(settings.mainDir, settings.FolderName);
+               bk.input(settings.mainDir, settings.FolderName, filePathEnd);
                 break;
             }
 
@@ -259,7 +265,7 @@ int main()
             {
                 system("CLS");
                 bk.avtor(VER);
-                bk.input(settings.mainDir, settings.FolderName);
+               bk.input(settings.mainDir, settings.FolderName, filePathEnd);
                 break;
             }
         }
