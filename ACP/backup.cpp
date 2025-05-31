@@ -98,7 +98,7 @@ namespace backup
     void Back::input(const fs::path path, const std::string folder_name, const fs::path pathend)
     {
         std::cout << "\n\nОсновная папка: " << path.string() << "\n";
-        std::cout << "Конечная папка: " << pathend.string() << "\n";
+        std::cout << "Конечная папка: " << pathend.u8string() << "\n";
         std::cout << "Название новой папки: " << folder_name;
         std::cout << "\n============================= \n";
         std::cout << "1 - Работа с папками\n";
@@ -357,6 +357,7 @@ namespace backup
             {"DelFolder", s.DelFolder},
             {"OpenDir", s.OpenDir},
             {"mainDir", s.mainDir},
+            {"filePathEnd", s.filePathEnd},
             {"FolderName", s.FolderName }
         };
     }
@@ -367,6 +368,7 @@ namespace backup
         j.at("DelFolder").get_to(s.DelFolder);
         j.at("OpenDir").get_to(s.OpenDir);
         j.at("mainDir").get_to(s.mainDir);
+        j.at("filePathEnd").get_to(s.filePathEnd);
         j.at("FolderName").get_to(s.FolderName);
 
     }

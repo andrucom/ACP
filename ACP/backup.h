@@ -20,6 +20,7 @@ namespace backup
 			bool DelFolder = false;
 			bool OpenDir = true;
 			std::string mainDir = "C:/Test";
+			std::string filePathEnd = "";
 			std::string FolderName = "BackUp_";
 		};
 

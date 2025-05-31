@@ -20,7 +20,6 @@
 
 backup::Back bk;
 std::unordered_set<std::string> allowedNames = { "dahalove","dahalove_nether","dahalove_the_end", "test1"};
-std::string filePathEnd = "C:/test_out";
 
 int inp;
 int inp2;
@@ -44,7 +43,7 @@ int main()
     bk.save_settings(settings, config_path);
 
     bk.avtor(VER);
-    bk.input(settings.mainDir, settings.FolderName, filePathEnd);
+    bk.input(settings.mainDir, settings.FolderName, settings.filePathEnd);
 
 
 
@@ -97,7 +96,7 @@ int main()
 
                 system("CLS");
                 bk.avtor(VER);
-               bk.input(settings.mainDir, settings.FolderName, filePathEnd);
+               bk.input(settings.mainDir, settings.FolderName, settings.filePathEnd);
                 break;
             }
 
@@ -110,8 +109,8 @@ int main()
                 {
 
                     std::cout << "_____________________\n";
-                    std::cout << "1 - Поменять основную папку\n";
-                    std::cout << "2 - Поменять создаваемую папку\n";
+                    std::cout << "1 - Изменить основную папку\n";
+                    std::cout << "2 - Изменить создаваемую папку\n";
                     std::cout << "3 - Изменить конечную папку\n";
                     std::cout << "4 - Сбросить конечную папку\n";
 
@@ -139,17 +138,22 @@ int main()
                             break;
                         }
                         case 3:
+                        {
                             system("CLS");
                             std::cout << "Введите путь конечной папки: ";
-                            std::cin >> filePathEnd;
+                            std::cin >> settings.filePathEnd;
+                            bk.save_settings(settings, config_path);
                             std::cout << "\n Готово!\n\n";
                             break;
+                        }
                         case 4:
+                        {
                             system("CLS");
                             std::cout << "Сброшено\n\n";
-                            filePathEnd = "";
+                            settings.filePathEnd = "";
+                            bk.save_settings(settings, config_path);
                             break;
-
+                        }
                         default:
                         {
                             system("CLS");
@@ -160,7 +164,7 @@ int main()
 
                 system("CLS");
                 bk.avtor(VER);
-               bk.input(settings.mainDir, settings.FolderName, filePathEnd);
+                bk.input(settings.mainDir, settings.FolderName, settings.filePathEnd);
                 break;
             }
 
@@ -183,20 +187,20 @@ int main()
                     {
                     case 1:
                         system("CLS");
-                        bk.createFolder(settings.mainDir, settings.FolderName, allowedNames, settings, filePathEnd);
+                        bk.createFolder(settings.mainDir, settings.FolderName, allowedNames, settings, settings.filePathEnd);
                         if (settings.OpenDir == true)
                         {
-                            bk.OpenMainDir(settings.mainDir, filePathEnd);
+                            bk.OpenMainDir(settings.mainDir, settings.filePathEnd);
                         }
 
                         break;
 
                     case 2:
                         system("CLS");
-                        bk.createFolderWF(settings.mainDir, settings.FolderName, allowedNames, settings, filePathEnd);
+                        bk.createFolderWF(settings.mainDir, settings.FolderName, allowedNames, settings, settings.filePathEnd);
                         if (settings.OpenDir == true)
                         {
-                            bk.OpenMainDir(settings.mainDir, filePathEnd);
+                            bk.OpenMainDir(settings.mainDir, settings.filePathEnd);
                         }
 
                         break;
@@ -210,7 +214,7 @@ int main()
 
                 system("CLS");
                 bk.avtor(VER);
-               bk.input(settings.mainDir, settings.FolderName, filePathEnd);
+               bk.input(settings.mainDir, settings.FolderName, settings.filePathEnd);
                 break;
             }
 
@@ -257,7 +261,7 @@ int main()
 
                 system("CLS");
                 bk.avtor(VER);
-               bk.input(settings.mainDir, settings.FolderName, filePathEnd);
+               bk.input(settings.mainDir, settings.FolderName, settings.filePathEnd);
                 break;
             }
 
@@ -265,7 +269,7 @@ int main()
             {
                 system("CLS");
                 bk.avtor(VER);
-               bk.input(settings.mainDir, settings.FolderName, filePathEnd);
+               bk.input(settings.mainDir, settings.FolderName, settings.filePathEnd);
                 break;
             }
         }
