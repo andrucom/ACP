@@ -166,11 +166,9 @@ namespace backup
         std::string folder_name1 = prefix + suffix_limited + folder_name + time();
         fs::path dir_path;
         std::string filepathEnd;
-        pathend = pathend;
 
         if (pathend == "")
         {
-            pathend = path;
             dir_path = path / folder_name1;
             filepathEnd = path.string() + "/" + folder_name1;
         }
@@ -181,7 +179,7 @@ namespace backup
         }
 
         // Папка
-        if (fs::exists(pathend))
+        if (fs::exists(path) and fs::exists(pathend))
         {
             fs::create_directory(dir_path);
             std::cout << "\n>> Папка создана! " << dir_path;
@@ -217,7 +215,7 @@ namespace backup
         }
         else
         {
-            std::cerr << "\t\t-->> Ошибка: " << pathend.string() << " не существует\n";
+            std::cerr << "\t\t-->> Ошибка: " << path.string() << " или "<< pathend.string() <<  " не существует\n";
         }
     }
 
@@ -227,11 +225,9 @@ namespace backup
         std::string folder_name1 = prefix + suffix_full + folder_name + time();
         fs::path dir_path;
         std::string filepathEnd;
-        pathend = pathend;
 
         if (pathend == "")
         {
-            pathend = path;
             dir_path = path / folder_name1;
             filepathEnd = path.string() + "/" + folder_name1;
         }
@@ -242,7 +238,7 @@ namespace backup
         }
 
         // Папка
-        if (fs::exists(pathend))
+        if (fs::exists(path) and fs::exists(pathend))
         {
             
 
@@ -281,7 +277,7 @@ namespace backup
         }
         else
         {
-            std::cerr << "\t\t-->> Ошибка: " << pathend << " не существует\n";
+            std::cerr << "\t\t-->> Ошибка: " << path.string() << " или " << pathend.string() << " не существует\n";
         }
     }
 
